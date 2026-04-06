@@ -220,7 +220,7 @@
     align-items: center;
     justify-content: flex-start;
     text-align: center;
-    padding: 82px 20px 8vh 20px;
+    padding: 20px 20px 8vh 20px; /* Reduced top padding to raise content */
     position: relative;
     overflow: hidden;
   }
@@ -570,7 +570,7 @@
   .menu-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center; /* Center aligned items */
     margin-bottom: 2px;
     width: 100%;
     gap: 4px;
@@ -587,11 +587,10 @@
 
   .menu-dots {
     flex-grow: 1;
+    height: 1px;
     border-bottom: 2px dotted var(--text-muted);
     margin: 0 10px;
     opacity: 0.3;
-    position: relative;
-    top: -4px;
   }
 
   .menu-price {
@@ -630,7 +629,7 @@
   .c-label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
   .c-val { font-size: 1.05rem; font-weight: 500; }
   
-  .order-form-wrap { padding: 50px 40px; }
+  .order-form-wrap { padding: 50px 40px; text-align: left; }
   .fg { margin-bottom: 14px; }
   .fg label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-main); margin-bottom: 5px; }
   .fg input, .fg textarea, .fg select {
@@ -1013,18 +1012,18 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--text-muted);
-    opacity: 0.5; /* Very subtle appearance */
+    color: var(--primary); /* Matched with rate color */
+    opacity: 0.85; /* Subtle appearance */
     padding: 0;
     margin-right: 6px;
     transition: all 0.2s ease;
     display: none;
     align-items: center;
-    vertical-align: -2px; /* aligns beautifully with inline text */
+    vertical-align: middle; 
     line-height: 1;
   }
   .img-view-btn.has-img { display: inline-flex; }
-  .img-view-btn:hover { color: var(--primary); opacity: 1; transform: scale(1.1); }
+  .img-view-btn:hover { opacity: 1; transform: scale(1.15) rotate(-5deg); }
 
   /* FOOTER */
   footer {
@@ -1162,7 +1161,45 @@
     .contact-info { text-align: center; }
     .c-item { justify-content: center; }
     .menu-header { text-align: left; } /* keep menu headers left-aligned */
-    .order-form-wrap h3, .fg label { text-align: left; }
+    
+    /* Responsive overrides for Order summary table & form */
+    .order-form-wrap { text-align: left; } /* Ensures choose item is left aligned */
+    .cs-trigger { text-align: left; }
+    .order-summary-box {
+      padding: 10px 8px;
+      overflow-x: auto; /* allow horizontal scroll if still overflows */
+    }
+    .order-items-table {
+      font-size: 0.75rem;
+    }
+    .order-items-table th {
+      font-size: 0.65rem;
+      padding: 4px 4px;
+    }
+    .order-items-table td {
+      padding: 6px 4px;
+    }
+    .order-item-qty {
+      width: 44px;
+      padding: 3px 4px;
+      font-size: 0.8rem;
+    }
+    .order-item-name {
+      font-size: 0.8rem;
+    }
+    .order-item-unit {
+      font-size: 0.65rem;
+    }
+    .order-total-row td {
+      font-size: 0.85rem;
+    }
+    .order-total-amount {
+      font-size: 0.95rem;
+    }
+    .btn-clear-order {
+       padding: 4px 10px;
+       font-size: 0.75rem;
+    }
   }
 </style>
 </head>
@@ -1605,7 +1642,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var viewBtn = document.createElement('button');
     viewBtn.className = 'img-view-btn';
     viewBtn.title = 'Click to view image';
-    viewBtn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>';
+    viewBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 14a8 8 0 0 1-8 8"></path><path d="M18 11v-1a2 2 0 0 0-2-2v0a2 2 0 0 0-2-2v0a2 2 0 0 0-2-2v0a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v15"></path><path d="M14 14v-4"></path><path d="M10 14v-9"></path><path d="M6 14v-11a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v15"></path></svg>';
 
     viewBtn.onclick = function(e) {
       e.stopPropagation();
