@@ -2196,23 +2196,24 @@ function addItemToOrder() {
 
 // ===== RENDER ORDER TABLE =====
 function renderOrderTable() {
-  var tbody = document.getElementById('orderTableBody');
-  var table = document.getElementById('orderTable');
-  var emptyMsg = document.getElementById('orderEmptyMsg');
-  var actionsRow = document.getElementById('orderActionsRow');
+  var tbody      = document.getElementById('orderTableBody');
+  var table      = document.getElementById('orderTable');
+  var emptyMsg   = document.getElementById('orderEmptyMsg');
+  var actionsRow = document.getElementById('orderActionsRow'); // may not exist — guard every access
   var grandTotalEl = document.getElementById('orderGrandTotal');
 
   if (orderItems.length === 0) {
-    table.style.display = 'none';
-    emptyMsg.style.display = 'block';
-    actionsRow.style.display = 'none';
+    if (table)      table.style.display = 'none';
+    if (emptyMsg)   emptyMsg.style.display = 'block';
+    if (actionsRow) actionsRow.style.display = 'none';
     return;
   }
 
-  emptyMsg.style.display = 'none';
-  table.style.display = 'table';
-  actionsRow.style.display = 'flex';
+  if (emptyMsg)   emptyMsg.style.display = 'none';
+  if (table)      table.style.display = 'table';
+  if (actionsRow) actionsRow.style.display = 'flex';
 
+  if (!tbody) return;
   tbody.innerHTML = '';
   var grandTotal = 0;
 
@@ -2233,7 +2234,7 @@ function renderOrderTable() {
     tbody.appendChild(tr);
   });
 
-  grandTotalEl.textContent = '₹' + grandTotal.toLocaleString();
+  if (grandTotalEl) grandTotalEl.textContent = '₹' + grandTotal.toLocaleString();
 }
 
 function updateQty(idx, val) {
@@ -2517,7 +2518,7 @@ function obClearAll() {
     orderItems = [];           // wipe committed order too
     renderOrderTable();        // clear the Order Details summary
     updateOrderCount();        // reset nav badge
-    document.getElementById('orderDetailsFg').style.display = 'none'; // hide summary card
+    var fg = document.getElementById('orderDetailsFg'); if (fg) fg.style.display = 'none';
     obRender();                // refresh modal table
   }
 }
@@ -2534,7 +2535,7 @@ function obSaveOrder() {
   renderOrderTable();
   updateOrderCount();
   // Show the Order Details section
-  document.getElementById('orderDetailsFg').style.display = 'block';
+  var fg = document.getElementById('orderDetailsFg'); if (fg) fg.style.display = 'block';
   // Close modal explicitly
   var overlay = document.getElementById('orderBuilderOverlay');
   overlay.classList.remove('open');
