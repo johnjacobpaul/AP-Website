@@ -51,6 +51,27 @@
     letter-spacing: -0.02em;
   }
 
+  /* NAV WHATSAPP LINK */
+  .nav-wa-link {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    z-index: 2;
+  }
+  .nav-wa-link:hover { color: #25D366; }
+  .nav-wa-link svg { flex-shrink: 0; }
+  .wa-num { letter-spacing: 0.02em; }
+
+  @media (max-width: 768px) {
+    .wa-num { display: none; }
+    .nav-wa-link { position: absolute; right: 60px; top: 14px; }
+  }
+
   /* NAVIGATION - Glassmorphism */
   nav {
     background: rgba(240, 236, 248, 0.88); /* Lavender glass */
@@ -195,9 +216,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
-    padding: 20px 20px 14vh 20px; 
+    padding: 28px 20px 8vh 20px;
     position: relative;
     overflow: hidden;
   }
@@ -581,15 +602,16 @@
   .menu-desc { display: none; }
 
   /* ORDER SECTION */
-  #s-order { background: var(--bg-main); }
+  #s-order { background: var(--bg-main); scroll-margin-top: var(--nav-height); }
   .order-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: var(--bg-surface);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-soft);
     overflow: hidden;
+    padding: 32px;
   }
   .contact-info {
     background: #6d3fa0; /* Amethyst */
@@ -605,11 +627,11 @@
   .c-val { font-size: 1.05rem; font-weight: 500; }
   
   .order-form-wrap { padding: 50px 40px; }
-  .fg { margin-bottom: 20px; }
-  .fg label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
+  .fg { margin-bottom: 14px; }
+  .fg label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-main); margin-bottom: 5px; }
   .fg input, .fg textarea, .fg select {
     width: 100%;
-    padding: 14px 16px;
+    padding: 10px 14px;
     background: var(--bg-main);
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
@@ -623,7 +645,7 @@
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
   }
-  .fg textarea { height: 120px; resize: vertical; }
+  .fg textarea { height: 90px; resize: vertical; }
 
   .btn-whatsapp {
     background: #25D366;
@@ -1001,7 +1023,7 @@
     .hbtns { flex-direction: column; width: 100%; max-width: 300px; gap: 12px; }
     .hbtns .btn { width: 100%; }
     
-    #s-hero { padding: 10px 20px 4vh 20px; justify-content: flex-start; padding-top: 2vh; }
+    #s-hero { padding: 6px 20px 4vh 20px; justify-content: flex-start; padding-top: 6px; }
     .hero-logo { max-width: 300px; margin-bottom: 4px; }
     .htitle { font-size: 1.8rem; margin-bottom: 6px; }
     .hsub { font-size: 0.9rem; margin-bottom: 16px; }
@@ -1052,12 +1074,16 @@
     <span style="font-size: 1.4rem; margin-right: 4px; display: flex; align-items: center;">📍</span>
     <span class="desktop-addr" style="font-size: 0.85rem; line-height: 1.3; font-weight: 500; text-align: left; letter-spacing: 0.02em; display: flex; align-items: center; gap: 6px;">
       <span>Thudien House, Kandanad<br>Ernakulam 682305</span>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
     </span>
     <span class="mobile-addr" style="display: none; font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; align-items: center; gap: 6px;">
       Map
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
     </span>
+  </a>
+
+  
+  <a href="https://wa.me/919778538410" target="_blank" class="nav-wa-link" title="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="wa-num">+91 97785 38410</span>
   </a>
   
   <a href="#s-hero" class="nav-logo" id="navLogo">
@@ -1142,9 +1168,9 @@
     
     <div class="story-grid">
       <div class="story-text">
-        <p>Nestled in the lush village of <strong>Kandanad, Ernakulam</strong>, Ammu's Food Products was born out of one family's deep love for Kerala's culinary heritage. What began as cherished kitchen rituals — grinding fresh spices at dawn, hand-rolling Kuzhalappam, and slow-cooking pickles — slowly became something the whole neighbourhood looked forward to.</p>
+        <p>Nestled in the lush village of <strong>Kandanad, Ernakulam</strong>, Ammu's Food Products was born out of one family's deep love for Kerala's culinary heritage. What began as cherished kitchen rituals: grinding fresh spices at dawn, hand-rolling Kuzhalappam, and slow-cooking pickles. It slowly became something the whole neighbourhood looked forward to.</p>
         <p>Friends and family began requesting jars of Mango Pickle, bags of Puttu Podi, and boxes of Chakka Chips to take back home. That quiet joy of sharing traditional food is the heart and soul of everything we make.</p>
-        <p>Today, we still follow the same <strong>traditional recipes</strong> — no shortcuts, no preservatives, just the honest flavours of Kerala.</p>
+        <p>Today, we still follow the same <strong>traditional recipes</strong>. No shortcuts, no preservatives, just the honest flavours of Kerala.</p>
       </div>
       
       <!-- 3 Generations Timeline Block -->
@@ -1155,7 +1181,7 @@
         <div class="gen-item">
           <div class="gen-photo">
             <span class="thumb-emoji">👵</span>
-            <img src="images/vavamma.png" alt="Vavamma" class="thumb-img" onerror="this.style.opacity='0'">
+            <img src="images/vavamma.jpg" alt="Vavamma" class="thumb-img" onerror="this.style.opacity='0'">
           </div>
           <div class="gen-info">
             <h4>Vavamma</h4>
@@ -1166,7 +1192,7 @@
         <div class="gen-item">
           <div class="gen-photo">
             <span class="thumb-emoji">👵</span>
-            <img src="images/pushpa-jacob.png" alt="Pushpa Jacob" class="thumb-img" onerror="this.style.opacity='0'">
+            <img src="images/pushpa-jacob.jpg" alt="Pushpa Jacob" class="thumb-img" onerror="this.style.opacity='0'">
           </div>
           <div class="gen-info">
             <h4>Pushpa Jacob</h4>
@@ -1177,7 +1203,7 @@
         <div class="gen-item">
           <div class="gen-photo">
             <span class="thumb-emoji">👩</span>
-            <img src="images/hanna-paul.png" alt="Hanna Paul" class="thumb-img" onerror="this.style.opacity='0'">
+            <img src="images/hanna-paul.jpg" alt="Hanna Paul" class="thumb-img" onerror="this.style.opacity='0'">
           </div>
           <div class="gen-info">
             <h4>Hanna Paul</h4>
@@ -1211,18 +1237,18 @@
     <div class="menu-category" id="cat-snacks">
       <h3 class="category-title">4PM Kadi</h3>
       <div class="menu-grid">
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍯</span><img src="images/sharkara-unda.png" alt="Sharkara Unda" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Sharkara Unda</div><div class="menu-dots"></div><div class="menu-price">720/kg</div></div><div class="menu-desc">Sweet jaggery balls with a crispy rice exterior</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="images/panjasara-unda.png" alt="Panjasara Unda" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Panjasara Unda</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Melt-in-the-mouth sugar-coated rice flour balls</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍘</span><img src="images/achappam.png" alt="Achappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Achappam</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Delicate flower-shaped rose cookies</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥖</span><img src="images/kuzhalappam.png" alt="Kuzhalappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Kuzhalappam</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Crispy hollow rice flour rolls with cumin</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍟</span><img src="images/cheeda.png" alt="Cheeda" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Cheeda</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Thin, crunchy fried rice sticks</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍯</span><img src="images/cheeda-vilayichathu.png" alt="Cheeda Vilayichathu" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Cheeda Vilayichathu</div><div class="menu-dots"></div><div class="menu-price">620/kg</div></div><div class="menu-desc">Cheeda tossed in sweet jaggery</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍌</span><img src="images/banana-chips.png" alt="Banana Chips" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Banana Chips</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Thick-cut raw Kerala banana fried golden</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍈</span><img src="images/chakka-chips.png" alt="Chakka Chips" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chakka Chips</div><div class="menu-dots"></div><div class="menu-price">800/kg</div></div><div class="menu-desc">Crispy jackfruit chips — a seasonal delicacy</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥞</span><img src="images/neyyappam.png" alt="Neyyappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Neyyappam</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Deep-fried jaggery & rice pancake balls in ghee</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="images/aval-vilayichathu.png" alt="Aval Vilayichathu" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Aval Vilayichathu</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Flattened rice tossed with jaggery and coconut</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥮</span><img src="images/vattayappam.png" alt="Vattayappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Vattayappam</div><div class="menu-dots"></div><div class="menu-price">80/kg</div></div><div class="menu-desc">Steamed rice and coconut cake</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍮</span><img src="images/kinnathappam.png" alt="Kinnathappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Kinnathappam</div><div class="menu-dots"></div><div class="menu-price">90/kg</div></div><div class="menu-desc">Steamed plate cake made with rice & coconut milk</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍯</span><img src="images/sharkara-unda.jpg" alt="Sharkara Unda" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Sharkara Unda</div><div class="menu-dots"></div><div class="menu-price">720/kg</div></div><div class="menu-desc">Sweet jaggery balls with a crispy rice exterior</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="images/panjasara-unda.jpg" alt="Panjasara Unda" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Panjasara Unda</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Melt-in-the-mouth sugar-coated rice flour balls</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍘</span><img src="images/achappam.jpg" alt="Achappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Achappam</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Delicate flower-shaped rose cookies</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥖</span><img src="images/kuzhalappam.jpg" alt="Kuzhalappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Kuzhalappam</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Crispy hollow rice flour rolls with cumin</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍟</span><img src="images/cheeda.jpg" alt="Cheeda" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Cheeda</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Thin, crunchy fried rice sticks</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍯</span><img src="images/cheeda-vilayichathu.jpg" alt="Cheeda Vilayichathu" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Cheeda Vilayichathu</div><div class="menu-dots"></div><div class="menu-price">620/kg</div></div><div class="menu-desc">Cheeda tossed in sweet jaggery</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍌</span><img src="images/banana-chips.jpg" alt="Banana Chips" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Banana Chips</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Thick-cut raw Kerala banana fried golden</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍈</span><img src="images/chakka-chips.jpg" alt="Chakka Chips" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chakka Chips</div><div class="menu-dots"></div><div class="menu-price">800/kg</div></div><div class="menu-desc">Crispy jackfruit chips — a seasonal delicacy</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥞</span><img src="images/neyyappam.jpg" alt="Neyyappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Neyyappam</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Deep-fried jaggery & rice pancake balls in ghee</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="images/aval-vilayichathu.jpg" alt="Aval Vilayichathu" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Aval Vilayichathu</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Flattened rice tossed with jaggery and coconut</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥮</span><img src="images/vattayappam.jpg" alt="Vattayappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Vattayappam</div><div class="menu-dots"></div><div class="menu-price">80/kg</div></div><div class="menu-desc">Steamed rice and coconut cake</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍮</span><img src="images/kinnathappam.jpg" alt="Kinnathappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Kinnathappam</div><div class="menu-dots"></div><div class="menu-price">90/kg</div></div><div class="menu-desc">Steamed plate cake made with rice & coconut milk</div></div></div>
       </div>
     </div>
 
@@ -1230,12 +1256,12 @@
     <div class="menu-category" id="cat-podi">
       <h3 class="category-title">Podi</h3>
       <div class="menu-grid">
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌾</span><img src="images/appam-podi.png" alt="Appam Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Appam Podi</div><div class="menu-dots"></div><div class="menu-price">120/kg</div></div><div class="menu-desc">Finely milled rice flour for lacy Kerala appams</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌾</span><img src="images/puttu-podi.png" alt="Puttu Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Puttu Podi</div><div class="menu-dots"></div><div class="menu-price">120/kg</div></div><div class="menu-desc">Classic rice flour for the iconic steamed cake</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🤎</span><img src="images/chemba-puttu-podi.png" alt="Chemba Puttu Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chemba Puttu Podi</div><div class="menu-dots"></div><div class="menu-price">120/kg</div></div><div class="menu-desc">Nutritious red rice flour for earthier puttu</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥥</span><img src="images/chammandi-podi.png" alt="Chammandi Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chammandi Podi</div><div class="menu-dots"></div><div class="menu-price">900/kg</div></div><div class="menu-desc">Roasted coconut & spice chutney powder</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="images/avalose-podi.png" alt="Avalose Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Avalose Podi</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Sweet roasted rice and coconut powder</div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="images/chemba-avalose-podi.png" alt="Chemba Avalose Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chemba Avalose Podi</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Red rice version for wholesome goodness</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌾</span><img src="images/appam-podi.jpg" alt="Appam Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Appam Podi</div><div class="menu-dots"></div><div class="menu-price">120/kg</div></div><div class="menu-desc">Finely milled rice flour for lacy Kerala appams</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌾</span><img src="images/puttu-podi.jpg" alt="Puttu Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Puttu Podi</div><div class="menu-dots"></div><div class="menu-price">120/kg</div></div><div class="menu-desc">Classic rice flour for the iconic steamed cake</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🤎</span><img src="images/chemba-puttu-podi.jpg" alt="Chemba Puttu Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chemba Puttu Podi</div><div class="menu-dots"></div><div class="menu-price">120/kg</div></div><div class="menu-desc">Nutritious red rice flour for earthier puttu</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥥</span><img src="images/chammandi-podi.jpg" alt="Chammandi Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chammandi Podi</div><div class="menu-dots"></div><div class="menu-price">900/kg</div></div><div class="menu-desc">Roasted coconut & spice chutney powder</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="images/avalose-podi.jpg" alt="Avalose Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Avalose Podi</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Sweet roasted rice and coconut powder</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="images/chemba-avalose-podi.jpg" alt="Chemba Avalose Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chemba Avalose Podi</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Red rice version for wholesome goodness</div></div></div>
       </div>
     </div>
 
@@ -1243,21 +1269,21 @@
     <div class="menu-category" id="cat-pickles">
       <h3 class="category-title">Pickles</h3>
       <div class="menu-grid">
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥭</span><img src="images/mango-pickle.png" alt="Mango Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Mango Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥭</span><img src="images/chethu-manga-pickle.png" alt="Chethu Manga Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chethu Manga Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🟢</span><img src="images/nellikka-pickle.png" alt="Nellikka Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Nellikka Pickle</div><div class="menu-dots"></div><div class="menu-price">370/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🧄</span><img src="images/garlic-pickle.png" alt="Garlic Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Garlic Pickle</div><div class="menu-dots"></div><div class="menu-price">400/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥩</span><img src="images/beef-pickle.png" alt="Beef Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Beef Pickle</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🐟</span><img src="images/fish-choora-pickle.png" alt="Fish (Choora) Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fish (Choora) Pickle</div><div class="menu-dots"></div><div class="menu-price">1100/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🐟</span><img src="images/fish-kera-pickle.png" alt="Fish (Kera) Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fish (Kera) Pickle</div><div class="menu-dots"></div><div class="menu-price">1300/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍤</span><img src="images/prawns-pickle.png" alt="Prawns Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Prawns Pickle</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍋</span><img src="images/vadukapuli-pickle.png" alt="Vadukapuli Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Vadukapuli Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍋</span><img src="images/naranga-pickle.png" alt="Naranga Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Naranga Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍠</span><img src="images/chena-pickle.png" alt="Chena Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chena Pickle</div><div class="menu-dots"></div><div class="menu-price">400/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌴</span><img src="images/dates-lime-pickle.png" alt="Dates & Lime Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Dates & Lime Pickle</div><div class="menu-dots"></div><div class="menu-price">400/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌴</span><img src="images/dates-pickle.png" alt="Dates Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Dates Pickle</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🎋</span><img src="images/pindi-pickle.png" alt="Pindi Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pindi Pickle</div><div class="menu-dots"></div><div class="menu-price">300/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥒</span><img src="images/pavakka-pickle.png" alt="Pavakka Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pavakka Pickle</div><div class="menu-dots"></div><div class="menu-price">300/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥭</span><img src="images/mango-pickle.jpg" alt="Mango Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Mango Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥭</span><img src="images/chethu-manga-pickle.jpg" alt="Chethu Manga Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chethu Manga Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🟢</span><img src="images/nellikka-pickle.jpg" alt="Nellikka Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Nellikka Pickle</div><div class="menu-dots"></div><div class="menu-price">370/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🧄</span><img src="images/garlic-pickle.jpg" alt="Garlic Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Garlic Pickle</div><div class="menu-dots"></div><div class="menu-price">400/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥩</span><img src="images/beef-pickle.jpg" alt="Beef Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Beef Pickle</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🐟</span><img src="images/fish-choora-pickle.jpg" alt="Fish (Choora) Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fish (Choora) Pickle</div><div class="menu-dots"></div><div class="menu-price">1100/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🐟</span><img src="images/fish-kera-pickle.jpg" alt="Fish (Kera) Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fish (Kera) Pickle</div><div class="menu-dots"></div><div class="menu-price">1300/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍤</span><img src="images/prawns-pickle.jpg" alt="Prawns Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Prawns Pickle</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍋</span><img src="images/vadukapuli-pickle.jpg" alt="Vadukapuli Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Vadukapuli Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍋</span><img src="images/naranga-pickle.jpg" alt="Naranga Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Naranga Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍠</span><img src="images/chena-pickle.jpg" alt="Chena Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chena Pickle</div><div class="menu-dots"></div><div class="menu-price">400/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌴</span><img src="images/dates-lime-pickle.jpg" alt="Dates & Lime Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Dates & Lime Pickle</div><div class="menu-dots"></div><div class="menu-price">400/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌴</span><img src="images/dates-pickle.jpg" alt="Dates Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Dates Pickle</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🎋</span><img src="images/pindi-pickle.jpg" alt="Pindi Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pindi Pickle</div><div class="menu-dots"></div><div class="menu-price">300/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥒</span><img src="images/pavakka-pickle.jpg" alt="Pavakka Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pavakka Pickle</div><div class="menu-dots"></div><div class="menu-price">300/kg</div></div></div></div>
       </div>
     </div>
 
@@ -1268,21 +1294,21 @@
         <div style="grid-column: 1 / -1; font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 10px;">
           Note: All per-person (pp) items include 400g of food (Pidi or Fried Rice) & curry.
         </div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="images/fried-rice-chilli-gobi.png" alt="Fried Rice & Chilli Gobi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fried Rice & Chilli Gobi</div><div class="menu-dots"></div><div class="menu-price">200/pp</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="images/fried-rice-paneer.png" alt="Fried Rice & Paneer" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fried Rice & Paneer Butter Masala</div><div class="menu-dots"></div><div class="menu-price">250/pp</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍲</span><img src="images/pidi-chicken.png" alt="Pidi & Chicken" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pidi & Chicken Varuthara</div><div class="menu-dots"></div><div class="menu-price">250/pp</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍲</span><img src="images/pidi-beef.png" alt="Pidi & Beef" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pidi & Beef Curry</div><div class="menu-dots"></div><div class="menu-price">250/pp</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍲</span><img src="images/pidi-mushroom.png" alt="Pidi & Mushroom" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pidi & Mushroom Varuthara</div><div class="menu-dots"></div><div class="menu-price">375/pp</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="images/fried-rice-chicken.png" alt="Fried Rice & Chicken" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fried Rice & Chilli Chicken</div><div class="menu-dots"></div><div class="menu-price">225/pp</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥩</span><img src="images/beef-fry.png" alt="Beef Fry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Beef Fry</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥩</span><img src="images/beef-curry.png" alt="Beef Curry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Beef Curry</div><div class="menu-dots"></div><div class="menu-price">1000/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🐟</span><img src="images/fish-curry.png" alt="Fish Curry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fish Curry</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍗</span><img src="images/chicken-curry.png" alt="Chicken Curry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chicken Curry</div><div class="menu-dots"></div><div class="menu-price">450/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍄</span><img src="images/mushroom-fry.png" alt="Mushroom Fry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Mushroom Fry</div><div class="menu-dots"></div><div class="menu-price">2000/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍤</span><img src="images/prawns-fry.png" alt="Prawns Fry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Prawns Fry</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="images/puli-inji.png" alt="Puli Inji" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Puli Inji</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥥</span><img src="images/paal-kappa.png" alt="Paal Kappa" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Paal Kappa</div><div class="menu-dots"></div><div class="menu-price">250/kg</div></div></div></div>
-        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥥</span><img src="images/thenga-varuthathu.png" alt="Thenga Varuthathu" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Thenga Varuthathu</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="images/fried-rice-chilli-gobi.jpg" alt="Fried Rice & Chilli Gobi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fried Rice & Chilli Gobi</div><div class="menu-dots"></div><div class="menu-price">200/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="images/fried-rice-paneer.jpg" alt="Fried Rice & Paneer" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fried Rice & Paneer Butter Masala</div><div class="menu-dots"></div><div class="menu-price">250/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍲</span><img src="images/pidi-chicken.jpg" alt="Pidi & Chicken" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pidi & Chicken Varuthara</div><div class="menu-dots"></div><div class="menu-price">250/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍲</span><img src="images/pidi-beef.jpg" alt="Pidi & Beef" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pidi & Beef Curry</div><div class="menu-dots"></div><div class="menu-price">250/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍲</span><img src="images/pidi-mushroom.jpg" alt="Pidi & Mushroom" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pidi & Mushroom Varuthara</div><div class="menu-dots"></div><div class="menu-price">375/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="images/fried-rice-chicken.jpg" alt="Fried Rice & Chicken" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fried Rice & Chilli Chicken</div><div class="menu-dots"></div><div class="menu-price">225/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥩</span><img src="images/beef-fry.jpg" alt="Beef Fry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Beef Fry</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥩</span><img src="images/beef-curry.jpg" alt="Beef Curry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Beef Curry</div><div class="menu-dots"></div><div class="menu-price">1000/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🐟</span><img src="images/fish-curry.jpg" alt="Fish Curry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fish Curry</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍗</span><img src="images/chicken-curry.jpg" alt="Chicken Curry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chicken Curry</div><div class="menu-dots"></div><div class="menu-price">450/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍄</span><img src="images/mushroom-fry.jpg" alt="Mushroom Fry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Mushroom Fry</div><div class="menu-dots"></div><div class="menu-price">2000/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍤</span><img src="images/prawns-fry.jpg" alt="Prawns Fry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Prawns Fry</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="images/puli-inji.jpg" alt="Puli Inji" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Puli Inji</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥥</span><img src="images/paal-kappa.jpg" alt="Paal Kappa" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Paal Kappa</div><div class="menu-dots"></div><div class="menu-price">250/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥥</span><img src="images/thenga-varuthathu.jpg" alt="Thenga Varuthathu" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Thenga Varuthathu</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
       </div>
     </div>
 
@@ -1299,35 +1325,14 @@
 
 <!-- ORDER -->
 <div id="s-order" class="sec">
-  <div class="section-inner">
-    <div class="sec-header">
-      <span class="badge">Get in Touch</span>
-      <h2 class="sec-title">Place Your Order</h2>
+  <div class="section-inner" style="padding-top: 32px;">
+    <div class="sec-header" style="margin-bottom: 24px;">
+      <h2 class="sec-title" style="font-size: clamp(1.5rem, 3vw, 2rem); margin-top: 0;">Place Your Order</h2>
     </div>
 
     <div class="order-grid">
-      <div class="contact-info">
-        <h3 class="sec-title">We'd love to hear from you.</h3>
-        <p>We make everything in small batches, so orders are best placed a day or two in advance. For bulk orders or festive hampers, reach out directly.</p>
-        
-        <div class="c-item">
-          <div class="c-icon">📞</div>
-          <div>
-            <div class="c-label">WhatsApp / Call</div>
-            <div class="c-val">+91 9778538410</div>
-          </div>
-        </div>
-        <div class="c-item">
-          <div class="c-icon">📍</div>
-          <div>
-            <div class="c-label">Location</div>
-            <div class="c-val">Thudien, Kandanad, Ernakulam, Kerala 682305</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="order-form-wrap">
-        <h3 style="font-size: 1.5rem; margin-bottom: 24px;">Send us a message</h3>
+      <div class="order-form-wrap" style="max-width: 600px; margin: 0 auto; width: 100%;">
+        <h3 style="font-size: 1.15rem; margin-bottom: 16px; color: var(--text-main);">Send us a message</h3>
         
         <div class="fg">
           <label>Your Name</label>
@@ -1402,7 +1407,7 @@
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Request Order via WhatsApp
         </button>
-        <p class="order-note">🏡 We are a small family kitchen — everything is prepared fresh in small batches, made only on request. We will do our best to have your order ready by your preferred date. Delivery is available across Ernakulam for a small additional fee. We'll confirm all details with you on WhatsApp before we begin.</p>
+        <p class="order-note">🏡 We are a small family kitchen. Everything is prepared fresh in small batches, made only on request. We will do our best to have your order ready by your preferred date. Delivery is available across Ernakulam for a small additional fee. We'll confirm all details with you on WhatsApp before we begin.</p>
       </div>
     </div>
   </div>
