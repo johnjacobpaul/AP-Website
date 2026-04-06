@@ -71,6 +71,24 @@
     display: none;
   }
 
+
+  /* ── iPad / tablet nav (769px–1024px) ── */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    /* Show short "Map" label instead of full address */
+    .desktop-addr { display: none !important; }
+    .tablet-addr  { display: inline-flex !important; }
+
+    /* Shrink nav padding to give more room */
+    nav { padding: 0 3%; }
+
+    /* Compact nav-links gap so WA number doesn't overflow */
+    .nav-links { gap: 18px; }
+    .nav-links a { font-size: 0.82rem; }
+
+    /* Hide desktop WA number text — show icon + short number */
+    .wa-num { font-size: 0.75rem; }
+  }
+
   /* NAVIGATION - Glassmorphism */
   nav {
     background: rgba(240, 236, 248, 0.88); /* Lavender glass */
@@ -336,7 +354,7 @@
   }
   .sec-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 28px;
   }
   .sec-title {
     font-size: clamp(2rem, 4vw, 3rem);
@@ -346,11 +364,12 @@
 
   /* HISTORY SECTION */
   #s-history { background: var(--bg-alt); }
+  #s-history .section-inner { padding: 48px 5%; }
   .story-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: flex-start;
+    gap: 48px;
+    align-items: center;
   }
   .story-text p {
     font-size: 1.05rem;
@@ -363,12 +382,12 @@
   .generations-container {
     position: relative;
     background: var(--bg-surface);
-    padding: 40px 40px 40px 30px;
+    padding: 28px 32px 28px 24px;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-soft);
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 20px;
   }
   .generations-container h3 {
     font-family: 'Lora', serif;
@@ -380,7 +399,7 @@
   /* The subtle vertical connecting line */
   .gen-connector {
     position: absolute;
-    left: 120px; /* Aligns with centre of 180px photos (30px padding + 90px half width) */
+    left: 85px; /* Aligns with centre of 110px photos (30px padding + 55px half width) */
     top: 150px;
     bottom: 90px;
     width: 2px;
@@ -395,24 +414,24 @@
     z-index: 2;
   }
   .gen-photo {
-    width: 180px;
-    height: 180px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     border: 4px solid var(--bg-surface);
     background: var(--bg-alt);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4.8rem;
+    font-size: 3rem;
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
     box-shadow: 0 8px 24px rgba(44, 31, 74, 0.15);
   }
   .gen-info h4 {
-    font-size: 1.3rem;
+    font-size: 1.05rem;
     color: var(--text-main);
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
   .gen-info p {
     font-size: 0.95rem;
@@ -1473,6 +1492,7 @@
     <span class="desktop-addr" style="font-size: 0.85rem; line-height: 1.3; font-weight: 500; text-align: left; letter-spacing: 0.02em; display: flex; align-items: center; gap: 6px;">
       <span>Thudien House, Kandanad<br>Ernakulam 682305</span>
     </span>
+    <span class="tablet-addr" style="display: none; font-size: 0.88rem; font-weight: 500; align-items: center; gap: 4px;">Map</span>
     <span class="mobile-addr" style="display: none; font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; align-items: center; gap: 6px;">
       <span>Map</span>
     </span>
