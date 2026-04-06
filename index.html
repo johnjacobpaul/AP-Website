@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ammu's Food Products</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  :root {
+    /* Modern Foodie Color Palette - Pink Theme */
+    --primary: #e91e63;      /* Vibrant Pink */
+    --primary-hover: #c2185b; /* Darker Pink */
+    --bg-main: #f4ead6;      /* Parchment Base */
+    --bg-surface: #fcf6ec;   /* Light Parchment for cards */
+    --bg-alt: #e8dbbc;       /* Darker Parchment for alternate sections */
+    --text-main: #362922;    /* Deep Charcoal/Brown */
+    --text-muted: #736257;   /* Soft Brown/Grey */
+    --accent-green: #3a5a40; /* Leaf Green */
+    --border: #d6c5aa;       /* Aged border */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-pill: 50px;
+    --nav-height: 72px;
+    --shadow-soft: 0 8px 30px rgba(43, 36, 32, 0.06);
+    --shadow-hover: 0 12px 40px rgba(233, 30, 99, 0.12);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Offset for sticky nav + some breathing room for the larger cutout logo */
+    scroll-padding-top: calc(var(--nav-height) + 90px); 
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    /* Subtle SVG noise texture for parchment effect */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* NAVIGATION - Glassmorphism */
+  nav {
+    background: rgba(244, 234, 214, 0.85); /* Matches parchment base */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    height: var(--nav-height);
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .nav-brand {
+    color: var(--text-main);
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+    z-index: 2;
+  }
+
+  .nav-brand:hover {
+    color: var(--primary);
+  }
+
+  /* Center miniature logo - Cutout Effect */
+  .nav-logo {
+    position: absolute;
+    left: 50%;
+    bottom: -72px; /* Hangs perfectly halfway out of the nav bar */
+    transform: translateX(-50%);
+    height: 144px; 
+    width: 144px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 10;
+    border-radius: 50%;
+    border: 6px solid var(--bg-main); /* Scaled up border */
+    box-shadow: 0 6px 16px rgba(54, 41, 34, 0.12); 
+    background: var(--bg-surface);
+  }
+  
+  .nav-logo img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+  }
+  
+  .nav-logo.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-logo.visible:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 8px 24px rgba(233, 30, 99, 0.25);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    z-index: 2;
+  }
+
+  .nav-links a {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-main);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover, .nav-links a.active-link {
+    color: var(--primary);
+  }
+
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-main);
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  /* BUTTONS */
+  .btn {
+    padding: 14px 32px;
+    border-radius: var(--radius-pill);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.2);
+  }
+  .btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.3);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--text-main);
+    border: 2px solid var(--text-main);
+  }
+  .btn-outline:hover {
+    background: var(--text-main);
+    color: white;
+  }
+
+  /* HERO SECTION */
+  #s-hero {
+    min-height: calc(100vh - var(--nav-height));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px 20px 14vh 20px; 
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-logo {
+    width: 100%;
+    max-width: 350px; 
+    height: auto;
+    margin-bottom: 8px; 
+    z-index: 2; 
+    position: relative;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(233, 30, 99, 0.1);
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    margin-bottom: 24px;
+    z-index: 2; 
+    position: relative;
+  }
+
+  /* Simple, subtle serif heading blended with background */
+  .htitle {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.3;
+    margin-bottom: 16px;
+    color: #a81c4a; /* Warm deep pink/magenta */
+    z-index: 2; 
+    position: relative;
+  }
+  
+  .hsub {
+    font-size: clamp(1.1rem, 3vw, 1.2rem);
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    max-width: 600px;
+    z-index: 2; 
+    position: relative;
+  }
+
+  .hbtns {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    z-index: 2; 
+    position: relative;
+  }
+
+  /* --- INTRO ANIMATIONS --- */
+  @keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  .hero-anim {
+    opacity: 0; /* Start hidden */
+    animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .hero-logo.hero-anim { animation-delay: 0.1s; }
+  .htitle.hero-anim { animation-delay: 0.3s; }
+  .hsub.hero-anim { animation-delay: 0.5s; }
+  .hbtns.hero-anim { animation-delay: 0.7s; }
+
+  /* Decorative blobs/leaves for Hero */
+  @keyframes pulseBlob {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.05); opacity: 0.55; }
+  }
+  .blob { position: absolute; filter: blur(60px); z-index: 0; opacity: 0.4; border-radius: 50%; animation: pulseBlob 12s ease-in-out infinite; }
+  .blob-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: #ffe4d6; }
+  .blob-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: #e6f0e9; animation-delay: -6s; }
+
+  /* Floating Kerala Dish Animations */
+  .floating-dish {
+    position: absolute;
+    color: var(--primary);
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatDish 20s ease-in-out infinite;
+  }
+  @keyframes floatDish {
+    0% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-25px) rotate(8deg); }
+    66% { transform: translateY(15px) rotate(-8deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+  }
+  .fd-1 { top: 15%; left: 8%; animation-duration: 25s; }
+  .fd-2 { top: 60%; left: 5%; animation-duration: 22s; animation-delay: -5s; }
+  .fd-3 { top: 20%; right: 10%; animation-duration: 28s; animation-delay: -12s; }
+  .fd-4 { top: 70%; right: 6%; animation-duration: 24s; animation-delay: -3s; }
+  .fd-5 { bottom: 8%; left: 25%; animation-duration: 26s; animation-delay: -15s; }
+
+
+  /* SHARED SECTION STYLES */
+  .sec {
+    display: block; 
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 5%;
+  }
+  .sec-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .sec-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--text-main);
+    margin-top: 10px;
+  }
+
+  /* HISTORY SECTION */
+  #s-history { background: var(--bg-alt); }
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .story-text p {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .story-text strong { color: var(--primary); font-weight: 600; }
+  
+  /* Generations Timeline Setup */
+  .generations-container {
+    position: relative;
+    background: var(--bg-surface);
+    padding: 40px 40px 40px 30px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .generations-container h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
+  /* The subtle vertical connecting line */
+  .gen-connector {
+    position: absolute;
+    left: 90px; /* Aligns visually behind the center of the 120px photos (30px padding + 60px half width) */
+    top: 150px;
+    bottom: 90px;
+    width: 2px;
+    background: var(--border);
+    z-index: 1;
+  }
+  .gen-item {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+  }
+  .gen-photo {
+    width: 120px; /* Increased by 200% */
+    height: 120px; /* Increased by 200% */
+    border-radius: 50%;
+    border: 4px solid var(--bg-surface); 
+    background: var(--bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.2rem;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 6px 15px rgba(54, 41, 34, 0.12);
+  }
+  .gen-info h4 {
+    font-size: 1.3rem;
+    color: var(--text-main);
+    margin-bottom: 4px;
+  }
+  .gen-info p {
+    font-size: 0.95rem;
+    color: var(--primary);
+    font-weight: 500;
+    margin: 0;
+  }
+
+  /* --- FLOATING MENU CATEGORY NAV --- */
+  .floating-cat-nav {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(150px); /* Hidden initially */
+    background: rgba(244, 234, 214, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 8px 12px;
+    border-radius: 50px;
+    display: flex;
+    gap: 6px;
+    box-shadow: 0 10px 40px rgba(54, 41, 34, 0.15);
+    border: 1px solid rgba(214, 197, 170, 0.6);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    width: max-content;
+    max-width: 90vw;
+    flex-wrap: nowrap; /* Ensure it stays strictly on one line */
+    justify-content: center;
+  }
+
+  .floating-cat-nav.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .cat-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .cat-link:hover {
+    background: rgba(233, 30, 99, 0.1);
+    color: var(--primary);
+  }
+
+  .cat-link.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25);
+  }
+
+  /* PRODUCTS SECTION - MENU SCROLL STYLING */
+  .menu-category {
+    margin-bottom: 50px;
+    scroll-margin-top: calc(var(--nav-height) + 20px);
+  }
+  
+  .category-title {
+    font-family: 'Lora', serif;
+    font-size: 1.4rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 24px; 
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px; 
+    padding: 6px; 
+    background: transparent;
+    border-radius: var(--radius-sm);
+    transition: background 0.2s ease;
+  }
+  .menu-item:hover {
+    background: rgba(252, 246, 236, 0.6);
+  }
+  
+  /* Original Compact Thumbnail Size */
+  .menu-thumb {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #fcf6ec, #e8dbbc);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem; 
+    flex-shrink: 0;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.7), 0 4px 12px rgba(54, 41, 34, 0.06);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  /* Image integration styling */
+  .thumb-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+  }
+  .thumb-emoji {
+    position: absolute;
+    z-index: 1; /* Sits behind image, visible if image fails/is missing */
+  }
+  
+  .menu-thumb::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.5), transparent);
+    pointer-events: none;
+    z-index: 3;
+    border-radius: inherit;
+  }
+
+  .menu-item:hover .menu-thumb {
+    transform: scale(1.05) rotate(-3deg);
+  }
+
+  .menu-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+    width: 100%;
+  }
+
+  .menu-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+    white-space: nowrap;
+  }
+
+  .menu-dots {
+    flex-grow: 1;
+    border-bottom: 2px dotted var(--text-muted);
+    margin: 0 10px;
+    opacity: 0.3;
+    position: relative;
+    top: -4px;
+  }
+
+  .menu-price {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+
+  .menu-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+    max-width: 95%;
+  }
+
+  /* ORDER SECTION */
+  #s-order { background: var(--bg-main); }
+  .order-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+  }
+  .contact-info {
+    background: var(--text-main);
+    color: white;
+    padding: 50px 40px;
+  }
+  .contact-info .sec-title { color: white; text-align: left; margin-bottom: 20px; font-size: 2.2rem;}
+  .contact-info p { color: rgba(255,255,255,0.8); margin-bottom: 40px; font-size: 1.05rem; }
+  
+  .c-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+  .c-icon { font-size: 1.5rem; }
+  .c-label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  .c-val { font-size: 1.05rem; font-weight: 500; }
+  
+  .order-form-wrap { padding: 50px 40px; }
+  .fg { margin-bottom: 20px; }
+  .fg label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
+  .fg input, .fg textarea, .fg select {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--text-main);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .fg input:focus, .fg textarea:focus, .fg select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+  }
+  .fg textarea { height: 120px; resize: vertical; }
+
+  .btn-whatsapp {
+    background: #25D366;
+    color: white;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .btn-whatsapp:hover { background: #1ebd5c; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3); }
+  .btn-whatsapp svg { fill: white; width: 20px; height: 20px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--text-main);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.9rem;
+  }
+  footer strong { color: var(--primary); }
+
+  /* =========================================
+     MOBILE RESPONSIVENESS
+     ========================================= */
+  @media (max-width: 900px) {
+    .story-grid, .order-grid { grid-template-columns: 1fr; gap: 40px; }
+    .order-grid { display: flex; flex-direction: column-reverse; }
+    .contact-info, .order-form-wrap { padding: 40px 20px; }
+  }
+
+  @media (max-width: 768px) {
+    .desktop-addr { display: none !important; }
+    .mobile-addr { display: inline-flex !important; }
+
+    /* Nav structure */
+    nav {
+      flex-direction: column;
+      padding: 14px 20px 12px;
+      height: auto;
+      gap: 14px;
+      align-items: center;
+    }
+    .nav-brand {
+      align-self: flex-start;
+      width: 100%;
+    }
+    
+    /* Right Aligned Logo for Mobile - prevents overlap with nav links */
+    .nav-logo { 
+      left: auto;
+      right: 20px;
+      transform: none;
+      top: 10px;
+      bottom: auto;
+      height: 48px;
+      width: 48px;
+      border-width: 2px;
+    }
+    
+    .nav-logo.visible:hover {
+      transform: scale(1.05); 
+    }
+
+    .nav-links {
+      width: 100%;
+      justify-content: space-between;
+      gap: 5px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      flex-direction: row;
+      position: static;
+      background: transparent;
+      box-shadow: none;
+      clip-path: none; 
+    }
+    .nav-links li { width: auto; text-align: center; }
+    .nav-links a { display: inline-block; font-size: 0.95rem; padding: 6px 4px; border-top: none; }
+
+    .section-inner { padding: 60px 20px; }
+    .hbtns { flex-direction: column; width: 100%; max-width: 300px; gap: 12px; }
+    .hbtns .btn { width: 100%; }
+    
+    #s-hero { padding: 10px 20px 4vh 20px; justify-content: center; }
+    .hero-logo { max-width: 200px; margin-bottom: 8px; }
+    .htitle { font-size: 2rem; margin-bottom: 8px; }
+    .hsub { font-size: 0.95rem; margin-bottom: 20px; }
+
+    .menu-grid { grid-template-columns: 1fr; gap: 12px; }
+
+    /* Floating Timeline adjustments */
+    .gen-connector { left: 80px; }
+    .gen-photo {
+      width: 100px;
+      height: 100px;
+      font-size: 2.6rem;
+    }
+
+    .floating-cat-nav {
+      bottom: 16px;
+      border-radius: 30px;
+      padding: 6px 8px;
+      width: 96vw;
+      max-width: 400px;
+      justify-content: space-evenly;
+      gap: 2px;
+    }
+    .cat-link {
+      font-size: 0.7rem;
+      padding: 6px 8px;
+      letter-spacing: -0.02em;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://maps.app.goo.gl/uY43ovSrwQoLWNsS8" target="_blank" class="nav-brand" title="Open in Google Maps">
+    <span style="font-size: 1.4rem; margin-right: 4px; display: flex; align-items: center;">📍</span>
+    <span class="desktop-addr" style="font-size: 0.85rem; line-height: 1.3; font-weight: 500; text-align: left; letter-spacing: 0.02em; display: flex; align-items: center; gap: 6px;">
+      <span>Thudien House, Kandanad<br>Ernakulam 682305</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+    </span>
+    <span class="mobile-addr" style="display: none; font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; align-items: center; gap: 6px;">
+      Kandanad Map
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+    </span>
+  </a>
+  
+  <a href="#s-hero" class="nav-logo" id="navLogo">
+    <img src="badge-logo.png" alt="Ammu's Food Products Logo" onerror="this.onerror=null; this.src='https://placehold.co/150x150/e91e63/ffffff?text=Ammu\'s&font=inter'">
+  </a>
+  
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#s-history">Our Heritage</a></li>
+    <li><a href="#s-products">Menu</a></li>
+    <li><a href="#s-order">Order</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="s-hero" class="sec">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- Traditional Food Floating SVGs -->
+  <div class="floating-dish fd-1" title="Achappam">
+    <svg viewBox="0 0 100 100" width="80" height="80" stroke="currentColor" stroke-width="3" fill="none">
+      <path d="M50 15 C50 15 65 35 50 50 C65 35 85 50 50 50 C85 50 65 65 50 50 C65 65 50 85 50 50 C50 85 35 65 50 50 C35 65 15 50 50 50 C15 50 35 35 50 50 C35 35 50 15 50 50 Z"/>
+      <circle cx="50" cy="50" r="12" />
+    </svg>
+  </div>
+  
+  <div class="floating-dish fd-2" title="Appam">
+    <svg viewBox="0 0 100 100" width="90" height="70" stroke="currentColor" stroke-width="3" fill="none">
+      <ellipse cx="50" cy="50" rx="40" ry="30" />
+      <ellipse cx="50" cy="50" rx="20" ry="15" fill="currentColor" fill-opacity="0.1" stroke="none" />
+      <path d="M20 50 C 30 70, 70 70, 80 50" stroke-dasharray="3,3" />
+    </svg>
+  </div>
+
+  <div class="floating-dish fd-3" title="Puttu">
+    <svg viewBox="0 0 100 100" width="60" height="80" stroke="currentColor" stroke-width="3" fill="none">
+      <rect x="35" y="15" width="30" height="70" rx="3" />
+      <path d="M35 35 L65 35 M35 55 L65 55 M35 75 L65 75" stroke-dasharray="2,3" stroke-width="4" />
+    </svg>
+  </div>
+
+  <div class="floating-dish fd-4" title="Kuzhalappam">
+    <svg viewBox="0 0 100 100" width="80" height="40" stroke="currentColor" stroke-width="3" fill="none">
+      <path d="M15 50 Q30 35 50 35 T85 50 Q70 65 50 65 T15 50 Z" />
+      <ellipse cx="15" cy="50" rx="4" ry="10" />
+      <ellipse cx="85" cy="50" rx="4" ry="10" />
+      <circle cx="40" cy="45" r="1.5" fill="currentColor" />
+      <circle cx="60" cy="55" r="1.5" fill="currentColor" />
+      <circle cx="50" cy="50" r="1.5" fill="currentColor" />
+    </svg>
+  </div>
+
+  <div class="floating-dish fd-5" title="Unda">
+    <svg viewBox="0 0 100 100" width="55" height="55" stroke="currentColor" stroke-width="3" fill="none">
+      <circle cx="50" cy="50" r="35" />
+      <circle cx="35" cy="35" r="2" fill="currentColor" />
+      <circle cx="60" cy="40" r="2" fill="currentColor" />
+      <circle cx="45" cy="65" r="2" fill="currentColor" />
+      <circle cx="65" cy="60" r="2" fill="currentColor" />
+      <circle cx="40" cy="50" r="2" fill="currentColor" />
+    </svg>
+  </div>
+  
+  <img src="logo.png" alt="Ammu's Food Products Logo" class="hero-logo hero-anim" onerror="this.onerror=null; this.src='https://placehold.co/350x350/e91e63/ffffff?text=Ammu\'s+Logo&font=inter'">
+  
+  <h1 class="htitle hero-anim">Welcome to Ammu's Food Products</h1>
+  <p class="hsub hero-anim">Traditional Kerala flavours, crafted in small batches and delivered fresh.</p>
+  
+  <div class="hbtns hero-anim">
+    <a href="#s-products" class="btn btn-primary">Explore Menu</a>
+    <a href="#s-order" class="btn btn-outline">Place an Order</a>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div id="s-history" class="sec">
+  <div class="section-inner">
+    <div class="sec-header">
+      <span class="badge">Our Heritage</span>
+      <h2 class="sec-title">A Family Recipe Passed Down</h2>
+    </div>
+    
+    <div class="story-grid">
+      <div class="story-text">
+        <p>Nestled in the lush village of <strong>Kandanad, Ernakulam</strong>, Ammu's Food Products was born out of one family's deep love for Kerala's culinary heritage. What began as cherished kitchen rituals — grinding fresh spices at dawn, hand-rolling Kuzhalappam, and slow-cooking pickles — slowly became something the whole neighbourhood looked forward to.</p>
+        <p>Friends and family began requesting jars of Mango Pickle, bags of Puttu Podi, and boxes of Chakka Chips to take back home. That quiet joy of sharing traditional food is the heart and soul of everything we make.</p>
+        <p>Today, we still follow the same <strong>traditional recipes</strong> — no shortcuts, no preservatives, just the honest flavours of Kerala.</p>
+      </div>
+      
+      <!-- 3 Generations Timeline Block -->
+      <div class="generations-container">
+        <div class="gen-connector"></div>
+        <h3>The Women Behind the Recipe</h3>
+        
+        <div class="gen-item">
+          <div class="gen-photo">
+            <span class="thumb-emoji">👵</span>
+            <img src="images/great_grandmother.jpg" alt="Vavamma" class="thumb-img" onerror="this.style.opacity='0'">
+          </div>
+          <div class="gen-info">
+            <h4>Vavamma</h4>
+            <p>Founded the recipe in 1967</p>
+          </div>
+        </div>
+        
+        <div class="gen-item">
+          <div class="gen-photo">
+            <span class="thumb-emoji">👵</span>
+            <img src="images/grandmother.jpg" alt="Pushpa Jacob" class="thumb-img" onerror="this.style.opacity='0'">
+          </div>
+          <div class="gen-info">
+            <h4>Pushpa Jacob</h4>
+            <p>Preserver of Tradition for 30 Years</p>
+          </div>
+        </div>
+        
+        <div class="gen-item">
+          <div class="gen-photo">
+            <span class="thumb-emoji">👩</span>
+            <img src="images/sister.jpg" alt="Hanna Paul" class="thumb-img" onerror="this.style.opacity='0'">
+          </div>
+          <div class="gen-info">
+            <h4>Hanna Paul</h4>
+            <p>Continuing the legacy since 2021</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div id="s-products" class="sec">
+  <div class="section-inner">
+    <div class="sec-header" style="margin-bottom: 30px;">
+      <span class="badge">Menu</span>
+      <h2 class="sec-title">Our Products</h2>
+      <p style="color:var(--text-muted); margin-top:10px;">Authentic Kerala items made fresh in our family kitchen</p>
+    </div>
+
+    <!-- Download PDF Button -->
+    <div style="text-align: center; margin-bottom: 50px;">
+      <a href="Catalogue.pdf" download class="btn btn-outline" style="background: var(--bg-surface); padding: 10px 24px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Download Menu Card (.pdf)
+      </a>
+    </div>
+
+    <!-- Snacks -->
+    <div class="menu-category" id="cat-snacks">
+      <h3 class="category-title">4PM Kadi</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍯</span><img src="images/sharkara_unda.jpg" alt="Sharkara Unda" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Sharkara Unda</div><div class="menu-dots"></div><div class="menu-price">720/kg</div></div><div class="menu-desc">Sweet jaggery balls with a crispy rice exterior</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="" alt="Panjasara Unda" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Panjasara Unda</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Melt-in-the-mouth sugar-coated rice flour balls</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍘</span><img src="" alt="Achappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Achappam</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Delicate flower-shaped rose cookies</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥖</span><img src="" alt="Kuzhalappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Kuzhalappam</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Crispy hollow rice flour rolls with cumin</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍟</span><img src="" alt="Cheeda" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Cheeda</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Thin, crunchy fried rice sticks</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍯</span><img src="" alt="Cheeda Vilayichathu" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Cheeda Vilayichathu</div><div class="menu-dots"></div><div class="menu-price">620/kg</div></div><div class="menu-desc">Cheeda tossed in sweet jaggery</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍌</span><img src="" alt="Banana Chips" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Banana Chips</div><div class="menu-dots"></div><div class="menu-price">700/kg</div></div><div class="menu-desc">Thick-cut raw Kerala banana fried golden</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍈</span><img src="" alt="Chakka Chips" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chakka Chips</div><div class="menu-dots"></div><div class="menu-price">800/kg</div></div><div class="menu-desc">Crispy jackfruit chips — a seasonal delicacy</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥞</span><img src="" alt="Neyyappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Neyyappam</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Deep-fried jaggery & rice pancake balls in ghee</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="" alt="Aval Vilayichathu" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Aval Vilayichathu</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Flattened rice tossed with jaggery and coconut</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥮</span><img src="" alt="Vattayappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Vattayappam</div><div class="menu-dots"></div><div class="menu-price">80/kg</div></div><div class="menu-desc">Steamed rice and coconut cake</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍮</span><img src="" alt="Kinnathappam" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Kinnathappam</div><div class="menu-dots"></div><div class="menu-price">90/kg</div></div><div class="menu-desc">Steamed plate cake made with rice & coconut milk</div></div></div>
+      </div>
+    </div>
+
+    <!-- Podi -->
+    <div class="menu-category" id="cat-podi">
+      <h3 class="category-title">Podi</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌾</span><img src="" alt="Appam Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Appam Podi</div><div class="menu-dots"></div><div class="menu-price">120/kg</div></div><div class="menu-desc">Finely milled rice flour for lacy Kerala appams</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌾</span><img src="" alt="Puttu Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Puttu Podi</div><div class="menu-dots"></div><div class="menu-price">120/kg</div></div><div class="menu-desc">Classic rice flour for the iconic steamed cake</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🤎</span><img src="" alt="Chemba Puttu Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chemba Puttu Podi</div><div class="menu-dots"></div><div class="menu-price">120/kg</div></div><div class="menu-desc">Nutritious red rice flour for earthier puttu</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥥</span><img src="" alt="Chammandi Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chammandi Podi</div><div class="menu-dots"></div><div class="menu-price">900/kg</div></div><div class="menu-desc">Roasted coconut & spice chutney powder</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="" alt="Avalose Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Avalose Podi</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Sweet roasted rice and coconut powder</div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="" alt="Chemba Avalose Podi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chemba Avalose Podi</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div><div class="menu-desc">Red rice version for wholesome goodness</div></div></div>
+      </div>
+    </div>
+
+    <!-- Pickles -->
+    <div class="menu-category" id="cat-pickles">
+      <h3 class="category-title">Pickles</h3>
+      <div class="menu-grid">
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥭</span><img src="" alt="Mango Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Mango Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥭</span><img src="" alt="Chethu Manga Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chethu Manga Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🟢</span><img src="" alt="Nellikka Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Nellikka Pickle</div><div class="menu-dots"></div><div class="menu-price">370/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🧄</span><img src="" alt="Garlic Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Garlic Pickle</div><div class="menu-dots"></div><div class="menu-price">400/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥩</span><img src="" alt="Beef Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Beef Pickle</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🐟</span><img src="" alt="Fish (Choora) Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fish (Choora) Pickle</div><div class="menu-dots"></div><div class="menu-price">1100/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🐟</span><img src="" alt="Fish (Kera) Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fish (Kera) Pickle</div><div class="menu-dots"></div><div class="menu-price">1300/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍤</span><img src="" alt="Prawns Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Prawns Pickle</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍋</span><img src="" alt="Vadukapuli Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Vadukapuli Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍋</span><img src="" alt="Naranga Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Naranga Pickle</div><div class="menu-dots"></div><div class="menu-price">360/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍠</span><img src="" alt="Chena Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chena Pickle</div><div class="menu-dots"></div><div class="menu-price">400/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌴</span><img src="" alt="Dates & Lime Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Dates & Lime Pickle</div><div class="menu-dots"></div><div class="menu-price">400/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🌴</span><img src="" alt="Dates Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Dates Pickle</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🎋</span><img src="" alt="Pindi Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pindi Pickle</div><div class="menu-dots"></div><div class="menu-price">300/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥒</span><img src="" alt="Pavakka Pickle" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pavakka Pickle</div><div class="menu-dots"></div><div class="menu-price">300/kg</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- Specials -->
+    <div class="menu-category" id="cat-specials">
+      <h3 class="category-title">Ready to Eat</h3>
+      <div class="menu-grid">
+        <div style="grid-column: 1 / -1; font-size: 0.85rem; color: var(--text-muted); text-align: center; margin-bottom: 10px;">
+          Note: All per-person (pp) items include 400g of food (Pidi or Fried Rice) & curry.
+        </div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="" alt="Fried Rice & Chilli Gobi" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fried Rice & Chilli Gobi</div><div class="menu-dots"></div><div class="menu-price">200/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="" alt="Fried Rice & Paneer" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fried Rice & Paneer Butter Masala</div><div class="menu-dots"></div><div class="menu-price">250/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍲</span><img src="" alt="Pidi & Chicken" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pidi & Chicken Varuthara</div><div class="menu-dots"></div><div class="menu-price">250/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍲</span><img src="" alt="Pidi & Beef" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pidi & Beef Curry</div><div class="menu-dots"></div><div class="menu-price">250/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍲</span><img src="" alt="Pidi & Mushroom" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Pidi & Mushroom Varuthara</div><div class="menu-dots"></div><div class="menu-price">375/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍚</span><img src="" alt="Fried Rice & Chicken" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fried Rice & Chilli Chicken</div><div class="menu-dots"></div><div class="menu-price">225/pp</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥩</span><img src="" alt="Beef Fry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Beef Fry</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥩</span><img src="" alt="Beef Curry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Beef Curry</div><div class="menu-dots"></div><div class="menu-price">1000/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🐟</span><img src="" alt="Fish Curry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Fish Curry</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍗</span><img src="" alt="Chicken Curry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Chicken Curry</div><div class="menu-dots"></div><div class="menu-price">450/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍄</span><img src="" alt="Mushroom Fry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Mushroom Fry</div><div class="menu-dots"></div><div class="menu-price">2000/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🍤</span><img src="" alt="Prawns Fry" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Prawns Fry</div><div class="menu-dots"></div><div class="menu-price">1500/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥣</span><img src="" alt="Puli Inji" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Puli Inji</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥥</span><img src="" alt="Paal Kappa" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Paal Kappa</div><div class="menu-dots"></div><div class="menu-price">250/kg</div></div></div></div>
+        <div class="menu-item"><div class="menu-thumb"><span class="thumb-emoji">🥥</span><img src="" alt="Thenga Varuthathu" class="thumb-img" onerror="this.style.opacity='0'"></div><div class="menu-info"><div class="menu-header"><div class="menu-name">Thenga Varuthathu</div><div class="menu-dots"></div><div class="menu-price">600/kg</div></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Floating Category Navigation Pane (Subtle, Centered) -->
+<div class="floating-cat-nav" id="floatingNav">
+  <a href="#cat-snacks" class="cat-link active">4PM Kadi</a>
+  <a href="#cat-podi" class="cat-link">Podi</a>
+  <a href="#cat-pickles" class="cat-link">Pickles</a>
+  <a href="#cat-specials" class="cat-link">Ready to Eat</a>
+</div>
+
+<!-- ORDER -->
+<div id="s-order" class="sec">
+  <div class="section-inner">
+    <div class="sec-header">
+      <span class="badge">Get in Touch</span>
+      <h2 class="sec-title">Place Your Order</h2>
+    </div>
+
+    <div class="order-grid">
+      <div class="contact-info">
+        <h3 class="sec-title">We'd love to hear from you.</h3>
+        <p>We make everything in small batches, so orders are best placed a day or two in advance. For bulk orders or festive hampers, reach out directly.</p>
+        
+        <div class="c-item">
+          <div class="c-icon">📞</div>
+          <div>
+            <div class="c-label">WhatsApp / Call</div>
+            <div class="c-val">+91 9778538410</div>
+          </div>
+        </div>
+        <div class="c-item">
+          <div class="c-icon">📍</div>
+          <div>
+            <div class="c-label">Location</div>
+            <div class="c-val">Thudien, Kandanad, Ernakulam, Kerala 682305</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-form-wrap">
+        <h3 style="font-size: 1.5rem; margin-bottom: 24px;">Send us a message</h3>
+        
+        <div class="fg">
+          <label>Your Name</label>
+          <input type="text" id="fname" placeholder="e.g. Raji Mathew">
+        </div>
+        <div class="fg">
+          <label>Phone / WhatsApp</label>
+          <input type="tel" id="fphone" placeholder="+91 ">
+        </div>
+        <div class="fg">
+          <label>Interested in</label>
+          <select id="fcat">
+            <option value="">— Select a category —</option>
+            <option>4PM Kadi</option>
+            <option>Podi</option>
+            <option>Pickles</option>
+            <option>Ready to Eat</option>
+            <option>Festive Hamper / Gift Box</option>
+            <option>Bulk / Wholesale Order</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Your Order Details</label>
+          <textarea id="fmsg" placeholder="Tell us what you need — product names, quantities, delivery location…"></textarea>
+        </div>
+        
+        <button class="btn btn-primary btn-whatsapp" onclick="sendWA()">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Order on WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p style="margin-bottom:8px">© 2025 <strong>Ammu's Food Products</strong> · Kerala</p>
+  <p style="font-size: 0.8rem; opacity: 0.7;">Made with love, served with tradition</p>
+</footer>
+
+<script>
+// Logic to show/hide the nav logo and floating category menu
+window.addEventListener('scroll', function() {
+  const navLogo = document.getElementById('navLogo');
+  const floatingNav = document.getElementById('floatingNav');
+  const productsSec = document.getElementById('s-products');
+  
+  // Fade in miniature logo at top
+  if (window.scrollY > 100) {
+    navLogo.classList.add('visible');
+  } else {
+    navLogo.classList.remove('visible');
+  }
+  
+  // Show floating category pane ONLY when inside the Products section
+  if (productsSec) {
+    const rect = productsSec.getBoundingClientRect();
+    // Show when the top of the menu comes into view, hide when scrolling past it
+    if (rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2) {
+      floatingNav.classList.add('visible');
+    } else {
+      floatingNav.classList.remove('visible');
+    }
+  }
+});
+
+// ScrollSpy setup for the floating category menu
+document.addEventListener("DOMContentLoaded", function() {
+  const sections = document.querySelectorAll(".menu-category");
+  const navLinks = document.querySelectorAll(".floating-cat-nav .cat-link");
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "-20% 0px -70% 0px", // Adjusts trigger area 
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === "#" + entry.target.id) {
+            link.classList.add("active");
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((sec) => observer.observe(sec));
+});
+
+// WhatsApp Integration
+function sendWA(){
+  var n = document.getElementById('fname').value.trim();
+  var p = document.getElementById('fphone').value.trim();
+  var c = document.getElementById('fcat').value;
+  var m = document.getElementById('fmsg').value.trim();
+  
+  if(!n || !m) {
+    alert('Please enter your name and what you would like to order.');
+    return;
+  }
+  
+  var t = 'Hello Ammu\'s Food Products! 👋\n\n*Name:* ' + n + 
+          (p ? '\n*Phone:* ' + p : '') + 
+          (c ? '\n*Interested in:* ' + c : '') + 
+          '\n\n*Order/Message:*\n' + m;
+          
+  window.open('https://wa.me/919778538410?text='+encodeURIComponent(t), '_blank');
+}
+</script>
+</body>
+</html>
