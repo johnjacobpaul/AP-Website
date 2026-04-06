@@ -1035,6 +1035,226 @@
   .img-view-btn.has-img { display: inline-flex; }
   .img-view-btn:hover { background: var(--primary); color: white; }
 
+
+  /* CREATE / REVIEW ORDER BUTTON */
+  .btn-create-order {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 13px 20px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-bottom: 16px;
+    justify-content: center;
+    letter-spacing: 0.01em;
+  }
+  .btn-create-order:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+  /* ORDER BUILDER MODAL */
+  .ob-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 10, 40, 0.78);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    backdrop-filter: blur(4px);
+  }
+  .ob-overlay.open { display: flex; }
+  .ob-modal {
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 80px rgba(20,10,40,0.45);
+    display: flex;
+    flex-direction: column;
+  }
+  .ob-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--bg-surface);
+    z-index: 2;
+  }
+  .ob-header h3 {
+    font-size: 1.15rem;
+    color: var(--text-main);
+    font-weight: 600;
+  }
+  .ob-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: color 0.2s;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .ob-close:hover { color: var(--primary); background: rgba(233,30,99,0.08); }
+  .ob-picker-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    padding: 16px 24px;
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .ob-select { flex: 1; min-width: 200px; }
+  .ob-qty-input {
+    width: 72px;
+    flex-shrink: 0;
+    padding: 10px 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    background: var(--bg-main);
+    color: var(--text-main);
+    text-align: center;
+  }
+  .ob-qty-input:focus { outline: none; border-color: var(--primary); }
+  .ob-add-btn {
+    padding: 10px 18px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .ob-add-btn:hover { background: var(--primary-hover); }
+  .ob-table-wrap {
+    padding: 16px 24px;
+    flex: 1;
+    min-height: 160px;
+  }
+  .ob-empty {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    text-align: center;
+    padding: 32px 0;
+  }
+  .ob-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+  .ob-table th {
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    padding: 6px 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .ob-table td {
+    padding: 10px 10px;
+    border-bottom: 1px solid rgba(207,197,229,0.4);
+    vertical-align: middle;
+    color: var(--text-main);
+  }
+  .ob-table tr:last-child td { border-bottom: none; }
+  .ob-item-name { font-weight: 500; }
+  .ob-item-sub { font-size: 0.72rem; color: var(--text-muted); display: block; }
+  .ob-qty-cell {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .ob-qty-cell input {
+    width: 52px;
+    padding: 4px 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-main);
+    font-size: 0.85rem;
+    color: var(--text-main);
+    text-align: center;
+  }
+  .ob-unit { font-size: 0.7rem; color: var(--text-muted); }
+  .ob-del-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 1rem;
+    padding: 3px 7px;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .ob-del-btn:hover { color: #c0392b; background: rgba(192,57,43,0.08); }
+  .ob-total-row td { font-weight: 700; padding-top: 14px; border-top: 2px solid var(--border) !important; }
+  .ob-grand-total { font-size: 1rem; color: var(--primary); font-weight: 700; }
+  .ob-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-surface);
+    position: sticky;
+    bottom: 0;
+  }
+  .ob-btn-clear {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: var(--radius-pill);
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+  }
+  .ob-btn-clear:hover { border-color: #c0392b; color: #c0392b; background: rgba(192,57,43,0.06); }
+  .ob-btn-save {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 22px;
+    background: #3d2472;
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .ob-btn-save:hover { background: #2c1a54; }
+  @media (max-width: 480px) {
+    .ob-picker-row { flex-direction: column; align-items: stretch; }
+    .ob-select, .ob-qty-input, .ob-add-btn { width: 100%; }
+    .ob-table th:nth-child(3), .ob-table td:nth-child(3) { display: none; }
+  }
+
   /* FOOTER */
   footer {
     background: #3d2472;
@@ -1393,7 +1613,7 @@
         <div class="gen-item">
           <div class="gen-photo">
             <span class="thumb-emoji">👵</span>
-            <img src="images/pushpa-jacob.jpg" alt="Pushpa Jacob" class="thumb-img" onload="this.classList.remove('img-missing');this.style.opacity='1';" onerror="this.classList.add('img-missing')">
+            <img src="images/pushpa-jacob.jpeg" alt="Pushpa Jacob" class="thumb-img" onload="this.classList.remove('img-missing');this.style.opacity='1';" onerror="this.classList.add('img-missing')">
           </div>
           <div class="gen-info">
             <h4>Pushpa Jacob</h4>
@@ -1404,7 +1624,7 @@
         <div class="gen-item">
           <div class="gen-photo">
             <span class="thumb-emoji">👩</span>
-            <img src="images/hanna-paul.jpg" alt="Hanna Paul" class="thumb-img" onload="this.classList.remove('img-missing');this.style.opacity='1';" onerror="this.classList.add('img-missing')">
+            <img src="images/hanna-paul.jpeg" alt="Hanna Paul" class="thumb-img" onload="this.classList.remove('img-missing');this.style.opacity='1';" onerror="this.classList.add('img-missing')">
           </div>
           <div class="gen-info">
             <h4>Hanna Paul</h4>
@@ -1537,7 +1757,7 @@
         
         <div class="fg">
           <label>Your Name</label>
-          <input type="text" id="fname" placeholder="e.g. Raji Mathew">
+          <input type="text" id="fname" placeholder="e.g. Hanna Paul">
         </div>
         <div class="fg">
           <label>Phone / WhatsApp</label>
@@ -1549,45 +1769,23 @@
           <span id="fdate-hint" style="font-size:0.78rem; color:var(--text-muted); margin-top:4px; display:block;">Earliest available: <strong id="fdate-earliest"></strong> &nbsp;·&nbsp; Sundays unavailable</span>
         </div>
 
-        <!-- ITEM PICKER -->
-        <div class="fg">
-          <label>Choose Item</label>
-          <div class="item-picker-row">
-            <div class="custom-select-wrap" id="csWrap">
-              <input type="hidden" id="fitem-val" value="">
-              <button type="button" class="cs-trigger" id="csTrigger" onclick="toggleCS()">
-                <span class="cs-trigger-text placeholder" id="csTriggerText">— Select an item —</span>
-                <span class="cs-arrow">▾</span>
-              </button>
-              <div class="cs-panel" id="csPanel">
-                <div class="cs-search-wrap">
-                  <span class="cs-search-icon">
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-                  </span>
-                  <input type="text" class="cs-search" id="csSearch" placeholder="Search items…" oninput="filterCS(this.value)" autocomplete="off">
-                </div>
-                <div class="cs-list" id="csList"></div>
-              </div>
-            </div>
-            <div class="fg fg-qty" style="margin-bottom:0;">
-              <input type="number" id="fqty" placeholder="Qty" min="0.5" step="0.5" value="1" style="text-align:center;">
-            </div>
-            <button class="btn-add-item" onclick="addItemToOrder()">+ Add</button>
-          </div>
-        </div>
+        <!-- CREATE ORDER BUTTON -->
+        <button class="btn-create-order" onclick="openOrderBuilder()" type="button">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Create / Review Order
+        </button>
 
-        <!-- ORDER SUMMARY -->
-        <div class="fg">
+        <!-- ORDER DETAILS (read-only summary, populated on Save) -->
+        <div class="fg" id="orderDetailsFg" style="display:none;">
           <label>Order Details</label>
           <div class="order-summary-box" id="orderSummaryBox">
-            <p class="order-empty-msg" id="orderEmptyMsg">No items added yet. Select an item above to begin.</p>
+            <p class="order-empty-msg" id="orderEmptyMsg">No items saved yet.</p>
             <table class="order-items-table" id="orderTable" style="display:none;">
               <thead>
                 <tr>
                   <th>Item</th>
                   <th>Qty</th>
                   <th style="text-align:right;">Total</th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody id="orderTableBody"></tbody>
@@ -1595,14 +1793,9 @@
                 <tr class="order-total-row">
                   <td colspan="2">Grand Total</td>
                   <td style="text-align:right;" class="order-total-amount" id="orderGrandTotal">₹0</td>
-                  <td></td>
                 </tr>
               </tfoot>
             </table>
-          </div>
-          <div class="order-actions-row" id="orderActionsRow" style="display:none;">
-            <button class="btn-clear-order" onclick="clearAllOrderItems()">🗑 Clear All</button>
-            <span style="font-size:0.8rem; color:var(--text-muted);">Quantities are approximate — we'll confirm before preparing.</span>
           </div>
         </div>
         
@@ -1620,6 +1813,69 @@
   <p class="footer-main">© 2025 <strong>Ammu's Food Products</strong> · Kerala</p>
   <p class="footer-sub">Made with love, served with tradition</p>
 </footer>
+
+<!-- ORDER BUILDER MODAL -->
+<div id="orderBuilderOverlay" class="ob-overlay" onclick="if(event.target===this)closeOrderBuilder()">
+  <div class="ob-modal">
+    <div class="ob-header">
+      <h3>Create Your Order</h3>
+      <button class="ob-close" onclick="closeOrderBuilder()">✕</button>
+    </div>
+
+    <!-- Item picker inside modal -->
+    <div class="ob-picker-row">
+      <div class="custom-select-wrap ob-select" id="csWrap">
+        <input type="hidden" id="fitem-val" value="">
+        <button type="button" class="cs-trigger" id="csTrigger" onclick="toggleCS()">
+          <span class="cs-trigger-text placeholder" id="csTriggerText">— Select an item —</span>
+          <span class="cs-arrow">▾</span>
+        </button>
+        <div class="cs-panel" id="csPanel">
+          <div class="cs-search-wrap">
+            <input type="text" class="cs-search" id="csSearch" placeholder="Search items…" oninput="filterCS(this.value)" autocomplete="off" style="padding-left:12px;">
+          </div>
+          <div class="cs-list" id="csList"></div>
+        </div>
+      </div>
+      <input type="number" id="obQty" class="ob-qty-input" placeholder="Qty" min="0.5" step="0.5" value="1">
+      <button class="ob-add-btn" onclick="obAddItem()">+ Add</button>
+    </div>
+
+    <!-- Live order table inside modal -->
+    <div class="ob-table-wrap" id="obTableWrap">
+      <p class="ob-empty" id="obEmpty">No items added yet. Choose an item above.</p>
+      <table class="ob-table" id="obTable" style="display:none;">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="obBody"></tbody>
+        <tfoot>
+          <tr class="ob-total-row">
+            <td colspan="3"><strong>Grand Total</strong></td>
+            <td class="ob-grand-total" id="obGrandTotal">₹0</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Action bar -->
+    <div class="ob-actions">
+      <button class="ob-btn-clear" onclick="obClearAll()">🗑 Clear All</button>
+      <div style="flex:1"></div>
+      <button class="ob-btn-save" onclick="obSaveOrder()">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save Order
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- LIGHTBOX MODAL -->
 <div id="imgLightbox" class="lightbox-overlay" onclick="if(event.target===this)closeLightbox()">
@@ -1973,7 +2229,7 @@ function renderOrderTable() {
         '</div>' +
       '</td>' +
       '<td style="text-align:right; font-weight:600; color:var(--primary);">₹' + lineTotal.toLocaleString() + '</td>' +
-      '<td><button class="order-item-delete" onclick="removeItem(' + idx + ')" title="Remove">✕</button></td>';
+      '';
     tbody.appendChild(tr);
   });
 
@@ -2149,6 +2405,136 @@ function sendWA() {
           
   window.open('https://wa.me/919778538410?text=' + encodeURIComponent(t), '_blank');
 }
+
+// ===== ORDER BUILDER MODAL =====
+var obItems = []; // draft items in modal — only committed on Save
+
+function openOrderBuilder() {
+  var name = document.getElementById('fname').value.trim();
+  var phone = document.getElementById('fphone').value.trim();
+  var date = document.getElementById('fdate').value;
+  var missing = [];
+  if (!name)  missing.push('Your Name');
+  if (!phone) missing.push('Phone / WhatsApp');
+  if (!date)  missing.push('Preferred Delivery Date');
+  if (missing.length) {
+    alert('Please fill in the following before creating your order:\n\n• ' + missing.join('\n• '));
+    return;
+  }
+  // Pre-populate modal with any already-saved items
+  obItems = orderItems.map(function(i) {
+    return { name: i.name, price: i.price, unit: i.unit, qty: i.qty };
+  });
+  obRender();
+  document.getElementById('orderBuilderOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Build dropdown inside modal
+  buildCSList('');
+}
+
+function closeOrderBuilder() {
+  document.getElementById('orderBuilderOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  // Reset modal picker state
+  csSelectedVal = '';
+  document.getElementById('fitem-val').value = '';
+  var t = document.getElementById('csTriggerText');
+  t.textContent = '— Select an item —';
+  t.classList.add('placeholder');
+  document.getElementById('obQty').value = '1';
+}
+
+function obAddItem() {
+  var val = document.getElementById('fitem-val').value;
+  var qty = parseFloat(document.getElementById('obQty').value) || 1;
+  if (!val) { alert('Please select an item first.'); return; }
+  var parts = val.split('|');
+  var name = parts[0], price = parseFloat(parts[1]), unit = parts[2];
+  var existing = obItems.find(function(i) { return i.name === name; });
+  if (existing) { existing.qty += qty; }
+  else { obItems.push({ name: name, price: price, unit: unit, qty: qty }); }
+  // Reset picker
+  csSelectedVal = '';
+  document.getElementById('fitem-val').value = '';
+  var t = document.getElementById('csTriggerText');
+  t.textContent = '— Select an item —';
+  t.classList.add('placeholder');
+  document.getElementById('obQty').value = '1';
+  closeCS();
+  obRender();
+}
+
+function obRender() {
+  var empty = document.getElementById('obEmpty');
+  var table = document.getElementById('obTable');
+  var body  = document.getElementById('obBody');
+  var grand = document.getElementById('obGrandTotal');
+  if (obItems.length === 0) {
+    empty.style.display = 'block';
+    table.style.display = 'none';
+    grand.textContent = '₹0';
+    return;
+  }
+  empty.style.display = 'none';
+  table.style.display = 'table';
+  body.innerHTML = '';
+  var total = 0;
+  obItems.forEach(function(item, idx) {
+    var line = item.price * item.qty;
+    total += line;
+    var unitLabel = item.unit === 'person' ? 'pp' : item.unit;
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="ob-item-name">' + item.name + '<span class="ob-item-sub">₹' + item.price + '/' + unitLabel + '</span></td>' +
+      '<td><div class="ob-qty-cell">' +
+        '<input type="number" min="0.5" step="0.5" value="' + item.qty + '" onchange="obUpdateQty(' + idx + ',this.value)">' +
+        '<span class="ob-unit">' + unitLabel + '</span>' +
+      '</div></td>' +
+      '<td style="color:var(--text-muted);font-size:0.82rem;">₹' + item.price + '</td>' +
+      '<td style="font-weight:600;color:var(--primary);">₹' + line.toLocaleString() + '</td>' +
+      '<td><button class="ob-del-btn" onclick="obRemove(' + idx + ')" title="Remove">✕</button></td>';
+    body.appendChild(tr);
+  });
+  grand.textContent = '₹' + total.toLocaleString();
+}
+
+function obUpdateQty(idx, val) {
+  var q = parseFloat(val);
+  if (isNaN(q) || q <= 0) { obRemove(idx); return; }
+  obItems[idx].qty = q;
+  obRender();
+}
+
+function obRemove(idx) {
+  obItems.splice(idx, 1);
+  obRender();
+}
+
+function obClearAll() {
+  if (obItems.length === 0) return;
+  if (confirm('Clear all items from this order?')) { obItems = []; obRender(); }
+}
+
+function obSaveOrder() {
+  if (obItems.length === 0) {
+    alert('Please add at least one item before saving.');
+    return;
+  }
+  // Commit to main orderItems
+  orderItems = obItems.map(function(i) {
+    return { name: i.name, price: i.price, unit: i.unit, qty: i.qty };
+  });
+  renderOrderTable();
+  updateOrderCount();
+  // Show the Order Details section
+  document.getElementById('orderDetailsFg').style.display = 'block';
+  closeOrderBuilder();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeOrderBuilder();
+});
+
 </script>
 </body>
 </html>
