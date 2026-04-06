@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Ammu's Food Products</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -472,6 +472,9 @@
     gap: 12px 24px; /* Reduced gap */
   }
   
+  /* Thumbnail hidden per user request */
+  .menu-thumb { display: none; }
+
   .menu-item {
     display: flex;
     align-items: center;
@@ -591,7 +594,7 @@
     overflow: hidden;
   }
   .contact-info {
-    background: #a81c4a; /* Elegant deep magenta/pink complementing the main theme */
+    background: #5c3a2e; /* Warm earthy brown — subtle and on-brand */
     color: white;
     padding: 50px 40px;
   }
@@ -633,15 +636,172 @@
   .btn-whatsapp:hover { background: #1ebd5c; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3); }
   .btn-whatsapp svg { fill: white; width: 20px; height: 20px; }
 
-  /* FOOTER */
-  footer {
-    background: #881337; /* Elegant dark rose/pink */
-    color: rgba(255,255,255,0.8);
-    text-align: center;
-    padding: 30px 20px;
-    font-size: 0.9rem;
+  /* ADD TO ORDER BUTTON on each menu item */
+  .add-to-order-btn {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--primary);
+    background: transparent;
+    color: var(--primary);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
   }
-  footer strong { color: #fdfbf9; } /* Contrast tweak for footer text */
+  .add-to-order-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.1);
+  }
+  .add-to-order-btn.added {
+    background: var(--primary);
+    color: white;
+  }
+
+  /* ORDER COUNT BADGE on nav */
+  .order-count-badge {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 1px 6px;
+    margin-left: 4px;
+    line-height: 1.4;
+    vertical-align: middle;
+    min-width: 18px;
+    text-align: center;
+    display: none;
+  }
+
+  /* ORDER SUMMARY TABLE */
+  .order-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+  .order-items-table th {
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .order-items-table td {
+    padding: 8px 8px;
+    border-bottom: 1px solid rgba(214,197,170,0.4);
+    color: var(--text-main);
+    vertical-align: middle;
+  }
+  .order-items-table tr:last-child td { border-bottom: none; }
+  .order-item-name { font-weight: 500; }
+  .order-item-qty-wrap { display: flex; align-items: center; gap: 6px; }
+  .order-item-qty {
+    width: 52px;
+    padding: 4px 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-main);
+    font-size: 0.88rem;
+    color: var(--text-main);
+    text-align: center;
+  }
+  .order-item-unit { font-size: 0.75rem; color: var(--text-muted); }
+  .order-item-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 1rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .order-item-delete:hover { color: #c0392b; background: rgba(192,57,43,0.08); }
+  .order-total-row td {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-main);
+    padding-top: 12px;
+    border-top: 2px solid var(--border) !important;
+  }
+  .order-total-amount { color: var(--primary); font-size: 1.1rem; }
+
+  .order-summary-box {
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-top: 8px;
+    min-height: 80px;
+  }
+  .order-empty-msg {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    text-align: center;
+    padding: 16px 0;
+  }
+  .order-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .btn-clear-order {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: var(--radius-pill);
+    padding: 6px 16px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-clear-order:hover { border-color: #c0392b; color: #c0392b; background: rgba(192,57,43,0.06); }
+
+  /* Item picker row */
+  .item-picker-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .item-picker-row .fg { flex: 1; min-width: 150px; margin-bottom: 0; }
+  .item-picker-row .fg-qty { width: 90px; flex-shrink: 0; margin-bottom: 0; }
+  .btn-add-item {
+    flex-shrink: 0;
+    padding: 13px 18px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .btn-add-item:hover { background: var(--primary-hover); }
+
+  /* FOOTER */
+  footer strong { color: #fdfbf9; }
+
+
 
   /* =========================================
      MOBILE RESPONSIVENESS
@@ -704,8 +864,8 @@
     .hbtns { flex-direction: column; width: 100%; max-width: 300px; gap: 12px; }
     .hbtns .btn { width: 100%; }
     
-    #s-hero { padding: 10px 20px 4vh 20px; justify-content: center; }
-    .hero-logo { max-width: 200px; margin-bottom: 8px; }
+    #s-hero { padding: 10px 20px 4vh 20px; justify-content: flex-start; padding-top: 5vh; }
+    .hero-logo { max-width: 300px; margin-bottom: 8px; }
     .htitle { font-size: 2rem; margin-bottom: 8px; }
     .hsub { font-size: 0.95rem; margin-bottom: 20px; }
 
@@ -746,7 +906,7 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
     </span>
     <span class="mobile-addr" style="display: none; font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; align-items: center; gap: 6px;">
-      Kandanad Map
+      Map
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
     </span>
   </a>
@@ -758,7 +918,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="#s-history">Our Heritage</a></li>
     <li><a href="#s-products">Menu</a></li>
-    <li><a href="#s-order">Order</a></li>
+    <li><a href="#s-order" id="navOrderLink">Order<span class="order-count-badge" id="orderCountBadge"></span></a></li>
   </ul>
 </nav>
 
@@ -1028,21 +1188,107 @@
           <label>Phone / WhatsApp</label>
           <input type="tel" id="fphone" placeholder="+91 ">
         </div>
+
+        <!-- ITEM PICKER -->
         <div class="fg">
-          <label>Interested in</label>
-          <select id="fcat">
-            <option value="">— Select a category —</option>
-            <option>4PM Kadi</option>
-            <option>Podi</option>
-            <option>Pickles</option>
-            <option>Ready to Eat</option>
-            <option>Festive Hamper / Gift Box</option>
-            <option>Bulk / Wholesale Order</option>
-          </select>
+          <label>Choose Item</label>
+          <div class="item-picker-row">
+            <div class="fg" style="margin-bottom:0; flex:1;">
+              <select id="fitem">
+                <option value="">— Select an item —</option>
+                <optgroup label="4PM Kadi">
+                  <option value="Sharkara Unda|720|kg">Sharkara Unda — ₹720/kg</option>
+                  <option value="Panjasara Unda|700|kg">Panjasara Unda — ₹700/kg</option>
+                  <option value="Achappam|700|kg">Achappam — ₹700/kg</option>
+                  <option value="Kuzhalappam|700|kg">Kuzhalappam — ₹700/kg</option>
+                  <option value="Cheeda|600|kg">Cheeda — ₹600/kg</option>
+                  <option value="Cheeda Vilayichathu|620|kg">Cheeda Vilayichathu — ₹620/kg</option>
+                  <option value="Banana Chips|700|kg">Banana Chips — ₹700/kg</option>
+                  <option value="Chakka Chips|800|kg">Chakka Chips — ₹800/kg</option>
+                  <option value="Neyyappam|600|kg">Neyyappam — ₹600/kg</option>
+                  <option value="Aval Vilayichathu|600|kg">Aval Vilayichathu — ₹600/kg</option>
+                  <option value="Vattayappam|80|piece">Vattayappam — ₹80/piece</option>
+                  <option value="Kinnathappam|90|piece">Kinnathappam — ₹90/piece</option>
+                </optgroup>
+                <optgroup label="Podi">
+                  <option value="Appam Podi|120|kg">Appam Podi — ₹120/kg</option>
+                  <option value="Puttu Podi|120|kg">Puttu Podi — ₹120/kg</option>
+                  <option value="Chemba Puttu Podi|120|kg">Chemba Puttu Podi — ₹120/kg</option>
+                  <option value="Chammandi Podi|900|kg">Chammandi Podi — ₹900/kg</option>
+                  <option value="Avalose Podi|600|kg">Avalose Podi — ₹600/kg</option>
+                  <option value="Chemba Avalose Podi|600|kg">Chemba Avalose Podi — ₹600/kg</option>
+                </optgroup>
+                <optgroup label="Pickles">
+                  <option value="Mango Pickle|360|kg">Mango Pickle — ₹360/kg</option>
+                  <option value="Chethu Manga Pickle|360|kg">Chethu Manga Pickle — ₹360/kg</option>
+                  <option value="Nellikka Pickle|370|kg">Nellikka Pickle — ₹370/kg</option>
+                  <option value="Garlic Pickle|400|kg">Garlic Pickle — ₹400/kg</option>
+                  <option value="Beef Pickle|1500|kg">Beef Pickle — ₹1500/kg</option>
+                  <option value="Fish (Choora) Pickle|1100|kg">Fish (Choora) Pickle — ₹1100/kg</option>
+                  <option value="Fish (Kera) Pickle|1300|kg">Fish (Kera) Pickle — ₹1300/kg</option>
+                  <option value="Prawns Pickle|1500|kg">Prawns Pickle — ₹1500/kg</option>
+                  <option value="Vadukapuli Pickle|360|kg">Vadukapuli Pickle — ₹360/kg</option>
+                  <option value="Naranga Pickle|360|kg">Naranga Pickle — ₹360/kg</option>
+                  <option value="Chena Pickle|400|kg">Chena Pickle — ₹400/kg</option>
+                  <option value="Dates & Lime Pickle|400|kg">Dates & Lime Pickle — ₹400/kg</option>
+                  <option value="Dates Pickle|600|kg">Dates Pickle — ₹600/kg</option>
+                  <option value="Pindi Pickle|300|kg">Pindi Pickle — ₹300/kg</option>
+                  <option value="Pavakka Pickle|300|kg">Pavakka Pickle — ₹300/kg</option>
+                </optgroup>
+                <optgroup label="Ready to Eat">
+                  <option value="Fried Rice & Chilli Gobi|200|person">Fried Rice & Chilli Gobi — ₹200/pp</option>
+                  <option value="Fried Rice & Paneer Butter Masala|250|person">Fried Rice & Paneer Butter Masala — ₹250/pp</option>
+                  <option value="Pidi & Chicken Varuthara|250|person">Pidi & Chicken Varuthara — ₹250/pp</option>
+                  <option value="Pidi & Beef Curry|250|person">Pidi & Beef Curry — ₹250/pp</option>
+                  <option value="Pidi & Mushroom Varuthara|375|person">Pidi & Mushroom Varuthara — ₹375/pp</option>
+                  <option value="Fried Rice & Chilli Chicken|225|person">Fried Rice & Chilli Chicken — ₹225/pp</option>
+                  <option value="Beef Fry|1500|kg">Beef Fry — ₹1500/kg</option>
+                  <option value="Beef Curry|1000|kg">Beef Curry — ₹1000/kg</option>
+                  <option value="Fish Curry|600|kg">Fish Curry — ₹600/kg</option>
+                  <option value="Chicken Curry|450|kg">Chicken Curry — ₹450/kg</option>
+                  <option value="Mushroom Fry|2000|kg">Mushroom Fry — ₹2000/kg</option>
+                  <option value="Prawns Fry|1500|kg">Prawns Fry — ₹1500/kg</option>
+                  <option value="Puli Inji|600|kg">Puli Inji — ₹600/kg</option>
+                  <option value="Paal Kappa|250|kg">Paal Kappa — ₹250/kg</option>
+                  <option value="Thenga Varuthathu|600|kg">Thenga Varuthathu — ₹600/kg</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="fg fg-qty" style="margin-bottom:0;">
+              <input type="number" id="fqty" placeholder="Qty" min="0.5" step="0.5" value="1" style="text-align:center;">
+            </div>
+            <button class="btn-add-item" onclick="addItemToOrder()">+ Add</button>
+          </div>
         </div>
+
+        <!-- ORDER SUMMARY -->
         <div class="fg">
-          <label>Your Order Details</label>
-          <textarea id="fmsg" placeholder="Tell us what you need — product names, quantities, delivery location…"></textarea>
+          <label>Order Details</label>
+          <div class="order-summary-box" id="orderSummaryBox">
+            <p class="order-empty-msg" id="orderEmptyMsg">No items added yet. Select an item above to begin.</p>
+            <table class="order-items-table" id="orderTable" style="display:none;">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Qty</th>
+                  <th style="text-align:right;">Total</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="orderTableBody"></tbody>
+              <tfoot>
+                <tr class="order-total-row">
+                  <td colspan="2">Grand Total</td>
+                  <td style="text-align:right;" class="order-total-amount" id="orderGrandTotal">₹0</td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="order-actions-row" id="orderActionsRow" style="display:none;">
+            <button class="btn-clear-order" onclick="clearAllOrderItems()">🗑 Clear All</button>
+            <span style="font-size:0.8rem; color:var(--text-muted);">Quantities are approximate — we'll confirm before preparing.</span>
+          </div>
         </div>
         
         <button class="btn btn-primary btn-whatsapp" onclick="sendWA()">
@@ -1060,23 +1306,174 @@
 </footer>
 
 <script>
-// Logic to show/hide the nav logo and floating category menu
+// ===== ORDER STATE =====
+var orderItems = []; // [{name, price, unit, qty}]
+
+// ===== ADD + BUTTONS TO ALL MENU ITEMS =====
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll('.menu-item').forEach(function(item) {
+    var nameEl = item.querySelector('.menu-name');
+    var priceEl = item.querySelector('.menu-price');
+    if (!nameEl || !priceEl) return;
+
+    var name = nameEl.textContent.trim();
+    var priceText = priceEl.textContent.trim(); // e.g. "720/kg"
+    var parts = priceText.split('/');
+    var price = parseFloat(parts[0]);
+    var unit = parts[1] || 'unit';
+
+    var btn = document.createElement('button');
+    btn.className = 'add-to-order-btn';
+    btn.title = 'Add to Order';
+    btn.innerHTML = '+';
+    btn.setAttribute('data-name', name);
+    btn.setAttribute('data-price', price);
+    btn.setAttribute('data-unit', unit);
+    btn.onclick = function() {
+      addItemByData(name, price, unit);
+      flashBtn(btn);
+    };
+    item.appendChild(btn);
+  });
+});
+
+function flashBtn(btn) {
+  btn.classList.add('added');
+  btn.innerHTML = '✓';
+  setTimeout(function() {
+    btn.classList.remove('added');
+    btn.innerHTML = '+';
+  }, 900);
+}
+
+// ===== ADD ITEM FROM MENU + BUTTON =====
+function addItemByData(name, price, unit) {
+  var existing = orderItems.find(function(i) { return i.name === name; });
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    orderItems.push({ name: name, price: price, unit: unit, qty: 1 });
+  }
+  renderOrderTable();
+  updateOrderCount();
+}
+
+// ===== ADD ITEM FROM DROPDOWN IN ORDER FORM =====
+function addItemToOrder() {
+  var select = document.getElementById('fitem');
+  var qtyInput = document.getElementById('fqty');
+  var val = select.value;
+  if (!val) { alert('Please select an item first.'); return; }
+  var parts = val.split('|');
+  var name = parts[0];
+  var price = parseFloat(parts[1]);
+  var unit = parts[2];
+  var qty = parseFloat(qtyInput.value) || 1;
+
+  var existing = orderItems.find(function(i) { return i.name === name; });
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    orderItems.push({ name: name, price: price, unit: unit, qty: qty });
+  }
+  select.value = '';
+  qtyInput.value = '1';
+  renderOrderTable();
+  updateOrderCount();
+}
+
+// ===== RENDER ORDER TABLE =====
+function renderOrderTable() {
+  var tbody = document.getElementById('orderTableBody');
+  var table = document.getElementById('orderTable');
+  var emptyMsg = document.getElementById('orderEmptyMsg');
+  var actionsRow = document.getElementById('orderActionsRow');
+  var grandTotalEl = document.getElementById('orderGrandTotal');
+
+  if (orderItems.length === 0) {
+    table.style.display = 'none';
+    emptyMsg.style.display = 'block';
+    actionsRow.style.display = 'none';
+    return;
+  }
+
+  emptyMsg.style.display = 'none';
+  table.style.display = 'table';
+  actionsRow.style.display = 'flex';
+
+  tbody.innerHTML = '';
+  var grandTotal = 0;
+
+  orderItems.forEach(function(item, idx) {
+    var lineTotal = item.price * item.qty;
+    grandTotal += lineTotal;
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="order-item-name">' + item.name + '<br><span class="order-item-unit">₹' + item.price + '/' + item.unit + '</span></td>' +
+      '<td>' +
+        '<div class="order-item-qty-wrap">' +
+          '<input class="order-item-qty" type="number" min="0.5" step="0.5" value="' + item.qty + '" onchange="updateQty(' + idx + ', this.value)">' +
+          '<span class="order-item-unit">' + item.unit + '</span>' +
+        '</div>' +
+      '</td>' +
+      '<td style="text-align:right; font-weight:600; color:var(--primary);">₹' + lineTotal.toLocaleString() + '</td>' +
+      '<td><button class="order-item-delete" onclick="removeItem(' + idx + ')" title="Remove">✕</button></td>';
+    tbody.appendChild(tr);
+  });
+
+  grandTotalEl.textContent = '₹' + grandTotal.toLocaleString();
+}
+
+function updateQty(idx, val) {
+  var q = parseFloat(val);
+  if (isNaN(q) || q <= 0) { removeItem(idx); return; }
+  orderItems[idx].qty = q;
+  renderOrderTable();
+  updateOrderCount();
+}
+
+function removeItem(idx) {
+  orderItems.splice(idx, 1);
+  renderOrderTable();
+  updateOrderCount();
+}
+
+function clearAllOrderItems() {
+  if (orderItems.length === 0) return;
+  if (confirm('Clear all items from your order?')) {
+    orderItems = [];
+    renderOrderTable();
+    updateOrderCount();
+  }
+}
+
+// ===== UPDATE NAV COUNT BADGE =====
+function updateOrderCount() {
+  var badge = document.getElementById('orderCountBadge');
+  if (!badge) return;
+  var total = orderItems.reduce(function(s, i) { return s + i.qty; }, 0);
+  if (total > 0) {
+    badge.textContent = total % 1 === 0 ? total : total.toFixed(1);
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+// ===== SCROLL BEHAVIOURS =====
 window.addEventListener('scroll', function() {
-  const navLogo = document.getElementById('navLogo');
-  const floatingNav = document.getElementById('floatingNav');
-  const productsSec = document.getElementById('s-products');
+  var navLogo = document.getElementById('navLogo');
+  var floatingNav = document.getElementById('floatingNav');
+  var productsSec = document.getElementById('s-products');
   
-  // Fade in miniature logo at top
   if (window.scrollY > 100) {
     navLogo.classList.add('visible');
   } else {
     navLogo.classList.remove('visible');
   }
   
-  // Show floating category pane ONLY when inside the Products section
   if (productsSec) {
-    const rect = productsSec.getBoundingClientRect();
-    // Show when the top of the menu comes into view, hide when scrolling past it
+    var rect = productsSec.getBoundingClientRect();
     if (rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2) {
       floatingNav.classList.add('visible');
     } else {
@@ -1085,21 +1482,21 @@ window.addEventListener('scroll', function() {
   }
 });
 
-// ScrollSpy setup for the floating category menu
+// ===== SCROLLSPY =====
 document.addEventListener("DOMContentLoaded", function() {
-  const sections = document.querySelectorAll(".menu-category");
-  const navLinks = document.querySelectorAll(".floating-cat-nav .cat-link");
+  var sections = document.querySelectorAll(".menu-category");
+  var navLinks = document.querySelectorAll(".floating-cat-nav .cat-link");
 
-  const observerOptions = {
+  var observerOptions = {
     root: null,
-    rootMargin: "-20% 0px -70% 0px", // Adjusts trigger area 
+    rootMargin: "-20% 0px -70% 0px",
     threshold: 0
   };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        navLinks.forEach((link) => {
+        navLinks.forEach(function(link) {
           link.classList.remove("active");
           if (link.getAttribute("href") === "#" + entry.target.id) {
             link.classList.add("active");
@@ -1109,27 +1506,37 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }, observerOptions);
 
-  sections.forEach((sec) => observer.observe(sec));
+  sections.forEach(function(sec) { observer.observe(sec); });
 });
 
-// WhatsApp Integration
-function sendWA(){
+// ===== WHATSAPP SEND =====
+function sendWA() {
   var n = document.getElementById('fname').value.trim();
   var p = document.getElementById('fphone').value.trim();
-  var c = document.getElementById('fcat').value;
-  var m = document.getElementById('fmsg').value.trim();
   
-  if(!n || !m) {
-    alert('Please enter your name and what you would like to order.');
+  if (!n) {
+    alert('Please enter your name.');
     return;
   }
-  
-  var t = 'Hello Ammu\'s Food Products! 👋\n\n*Name:* ' + n + 
-          (p ? '\n*Phone:* ' + p : '') + 
-          (c ? '\n*Interested in:* ' + c : '') + 
-          '\n\n*Order/Message:*\n' + m;
+  if (orderItems.length === 0) {
+    alert('Please add at least one item to your order.');
+    return;
+  }
+
+  var orderLines = orderItems.map(function(item) {
+    return '  • ' + item.name + ' × ' + item.qty + ' ' + item.unit + ' = ₹' + (item.price * item.qty).toLocaleString();
+  }).join('\n');
+
+  var grandTotal = orderItems.reduce(function(s, i) { return s + i.price * i.qty; }, 0);
+
+  var t = 'Hello Ammu\'s Food Products! 👋\n\n' +
+          '*Name:* ' + n +
+          (p ? '\n*Phone:* ' + p : '') +
+          '\n\n*My Order:*\n' + orderLines +
+          '\n\n*Estimated Total:* ₹' + grandTotal.toLocaleString() +
+          '\n\n_(Please confirm availability & delivery details)_';
           
-  window.open('https://wa.me/919778538410?text='+encodeURIComponent(t), '_blank');
+  window.open('https://wa.me/919778538410?text=' + encodeURIComponent(t), '_blank');
 }
 </script>
 </body>
