@@ -220,7 +220,7 @@
     align-items: center;
     justify-content: flex-start;
     text-align: center;
-    padding: 20px 20px 8vh 20px; /* Reduced top padding to raise content */
+    padding: 6px 20px 8vh 20px;
     position: relative;
     overflow: hidden;
   }
@@ -570,9 +570,14 @@
   .menu-header {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Center aligned items */
+    align-items: center;
     margin-bottom: 2px;
     width: 100%;
+    gap: 4px;
+  }
+  .menu-name {
+    display: flex;
+    align-items: center;
     gap: 4px;
   }
 
@@ -583,6 +588,9 @@
     white-space: normal;
     word-break: break-word;
     line-height: 1.3;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
   .menu-dots {
@@ -864,7 +872,7 @@
   }
   .cs-search {
     width: 100%;
-    padding: 9px 12px 9px 34px;
+    padding: 9px 12px 9px 38px;
     background: var(--bg-main);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -877,12 +885,13 @@
   .cs-search:focus { border-color: var(--primary); }
   .cs-search-icon {
     position: absolute;
-    left: 22px;
+    left: 21px;
     top: 50%;
     transform: translateY(-50%);
     color: var(--text-muted);
-    font-size: 0.85rem;
     pointer-events: none;
+    display: flex;
+    align-items: center;
   }
   .cs-search-wrap { position: relative; }
 
@@ -1010,20 +1019,21 @@
   /* View-image button injected into menu name */
   .img-view-btn {
     background: none;
-    border: none;
+    border: 1px solid var(--primary);
+    border-radius: 4px;
     cursor: pointer;
-    color: var(--primary); /* Matched with rate color */
-    opacity: 0.85; /* Subtle appearance */
-    padding: 0;
+    color: var(--primary);
+    padding: 2px 5px;
     margin-right: 6px;
+    gap: 3px;
     transition: all 0.2s ease;
     display: none;
     align-items: center;
-    vertical-align: middle; 
+    flex-shrink: 0;
     line-height: 1;
   }
   .img-view-btn.has-img { display: inline-flex; }
-  .img-view-btn:hover { opacity: 1; transform: scale(1.15) rotate(-5deg); }
+  .img-view-btn:hover { background: var(--primary); color: white; }
 
   /* FOOTER */
   footer {
@@ -1064,6 +1074,9 @@
     .nav-brand {
       align-self: flex-start;
       width: 100%;
+      display: flex;
+      align-items: center;
+      height: 22px;
     }
     
     /* Centre badge on mobile */
@@ -1149,8 +1162,9 @@
       position: absolute;
       right: 16px;
       left: auto;
-      transform: none;
-      top: 16px;
+      /* Align vertically with .nav-brand: nav padding-top=14px, nav-brand height≈22px, centre=14+11=25px */
+      top: 14px;
+      height: 22px;
       white-space: nowrap;
     }
     .nav-wa-mobile-center:hover { color: #25D366; }
@@ -1200,6 +1214,33 @@
        padding: 4px 10px;
        font-size: 0.75rem;
     }
+    /* === MOBILE ORDER FORM FIXES === */
+    /* Reduce order-grid padding so content isn't cramped */
+    .order-grid { padding: 14px 12px; }
+    .order-form-wrap { padding: 0 !important; width: 100%; }
+
+    /* Item picker: stack vertically, full width */
+    .item-picker-row { flex-direction: column; align-items: stretch; gap: 6px; }
+    .item-picker-row .custom-select-wrap { width: 100%; min-width: 0; }
+    .item-picker-row .fg-qty { width: 100%; flex-shrink: 0; }
+    .btn-add-item { width: 100%; }
+
+    /* All inputs/selects full width */
+    .fg input, .fg textarea, .fg select, .cs-trigger { width: 100% !important; box-sizing: border-box; }
+
+    /* Order Details table: prevent overflow */
+    .order-summary-box { overflow-x: hidden; padding: 8px; }
+    .order-items-table { table-layout: fixed; width: 100%; font-size: 0.72rem; }
+    .order-items-table th { font-size: 0.62rem; padding: 3px 3px; }
+    .order-items-table td { padding: 5px 3px; font-size: 0.72rem; }
+    .order-item-name { font-size: 0.72rem; word-break: break-word; }
+    .order-item-unit { font-size: 0.6rem; display: block; }
+    .order-item-qty { width: 36px; font-size: 0.72rem; padding: 2px 3px; }
+    .order-total-row td { font-size: 0.78rem; }
+
+    /* Send us a message heading — ensure it stays at top */
+    .order-form-wrap > h3 { margin-bottom: 12px; }
+
   }
 </style>
 </head>
@@ -1352,7 +1393,7 @@
         <div class="gen-item">
           <div class="gen-photo">
             <span class="thumb-emoji">👵</span>
-            <img src="images/pushpa-jacob.jpeg" alt="Pushpa Jacob" class="thumb-img" onload="this.classList.remove('img-missing');this.style.opacity='1';" onerror="this.classList.add('img-missing')">
+            <img src="images/pushpa-jacob.jpg" alt="Pushpa Jacob" class="thumb-img" onload="this.classList.remove('img-missing');this.style.opacity='1';" onerror="this.classList.add('img-missing')">
           </div>
           <div class="gen-info">
             <h4>Pushpa Jacob</h4>
@@ -1363,7 +1404,7 @@
         <div class="gen-item">
           <div class="gen-photo">
             <span class="thumb-emoji">👩</span>
-            <img src="images/hanna-paul.jpeg" alt="Hanna Paul" class="thumb-img" onload="this.classList.remove('img-missing');this.style.opacity='1';" onerror="this.classList.add('img-missing')">
+            <img src="images/hanna-paul.jpg" alt="Hanna Paul" class="thumb-img" onload="this.classList.remove('img-missing');this.style.opacity='1';" onerror="this.classList.add('img-missing')">
           </div>
           <div class="gen-info">
             <h4>Hanna Paul</h4>
@@ -1520,7 +1561,9 @@
               </button>
               <div class="cs-panel" id="csPanel">
                 <div class="cs-search-wrap">
-                  <span class="cs-search-icon">🔍</span>
+                  <span class="cs-search-icon">
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+                  </span>
                   <input type="text" class="cs-search" id="csSearch" placeholder="Search items…" oninput="filterCS(this.value)" autocomplete="off">
                 </div>
                 <div class="cs-list" id="csList"></div>
@@ -1642,7 +1685,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var viewBtn = document.createElement('button');
     viewBtn.className = 'img-view-btn';
     viewBtn.title = 'Click to view image';
-    viewBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 14a8 8 0 0 1-8 8"></path><path d="M18 11v-1a2 2 0 0 0-2-2v0a2 2 0 0 0-2-2v0a2 2 0 0 0-2-2v0a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v15"></path><path d="M14 14v-4"></path><path d="M10 14v-9"></path><path d="M6 14v-11a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v15"></path></svg>';
+    viewBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><polyline points="21 15 16 10 5 21"/></svg><span style="font-size:0.68rem;font-weight:600;letter-spacing:0.02em;">tap</span>';
 
     viewBtn.onclick = function(e) {
       e.stopPropagation();
