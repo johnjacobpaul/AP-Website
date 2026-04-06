@@ -108,6 +108,9 @@
     object-fit: cover;
     border-radius: 50%;
     display: block;
+    /* Helps retain crispness when 4k images are scaled down */
+    image-rendering: high-quality;
+    image-rendering: -webkit-optimize-contrast;
   }
   
   .nav-logo.visible {
@@ -466,14 +469,14 @@
   .menu-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px 24px; 
+    gap: 12px 24px; /* Reduced gap */
   }
   
   .menu-item {
     display: flex;
     align-items: center;
-    gap: 12px; 
-    padding: 6px; 
+    gap: 12px; /* Reduced gap */
+    padding: 6px; /* Reduced padding */
     background: transparent;
     border-radius: var(--radius-sm);
     transition: background 0.2s ease;
@@ -492,7 +495,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem; 
+    font-size: 1.3rem; /* Scaled down emoji */
     flex-shrink: 0;
     box-shadow: inset 0 2px 4px rgba(255,255,255,0.7), 0 4px 12px rgba(54, 41, 34, 0.06);
     position: relative;
@@ -588,7 +591,7 @@
     overflow: hidden;
   }
   .contact-info {
-    background: var(--text-main);
+    background: #a81c4a; /* Elegant deep magenta/pink complementing the main theme */
     color: white;
     padding: 50px 40px;
   }
@@ -597,7 +600,7 @@
   
   .c-item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
   .c-icon { font-size: 1.5rem; }
-  .c-label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  .c-label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
   .c-val { font-size: 1.05rem; font-weight: 500; }
   
   .order-form-wrap { padding: 50px 40px; }
@@ -632,13 +635,13 @@
 
   /* FOOTER */
   footer {
-    background: var(--text-main);
-    color: rgba(255,255,255,0.7);
+    background: #881337; /* Elegant dark rose/pink */
+    color: rgba(255,255,255,0.8);
     text-align: center;
     padding: 30px 20px;
     font-size: 0.9rem;
   }
-  footer strong { color: var(--primary); }
+  footer strong { color: #fdfbf9; } /* Contrast tweak for footer text */
 
   /* =========================================
      MOBILE RESPONSIVENESS
@@ -854,7 +857,7 @@
         <div class="gen-item">
           <div class="gen-photo">
             <span class="thumb-emoji">👵</span>
-            <img src="images/grandmother.jpg" alt="Pushpa Jacob" class="thumb-img" onerror="this.style.opacity='0'">
+            <img src="images/pushpa.jpg" alt="Pushpa Jacob" class="thumb-img" onerror="this.style.opacity='0'">
           </div>
           <div class="gen-info">
             <h4>Pushpa Jacob</h4>
@@ -865,7 +868,7 @@
         <div class="gen-item">
           <div class="gen-photo">
             <span class="thumb-emoji">👩</span>
-            <img src="images/sister.jpg" alt="Hanna Paul" class="thumb-img" onerror="this.style.opacity='0'">
+            <img src="images/hanna.jpg" alt="Hanna Paul" class="thumb-img" onerror="this.style.opacity='0'">
           </div>
           <div class="gen-info">
             <h4>Hanna Paul</h4>
