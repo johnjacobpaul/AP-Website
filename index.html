@@ -1945,7 +1945,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     viewBtn.onclick = function(e) {
       e.stopPropagation();
-      var name = nameEl.textContent.trim();
+      var name = Array.from(nameEl.childNodes).filter(function(n){return n.nodeType===3;}).map(function(n){return n.textContent.trim();}).join("").trim();
       var price = priceEl ? priceEl.textContent.trim() : '';
       var desc = descEl ? descEl.textContent.trim() : '';
       openLightbox(img.src, name, price, desc);
@@ -1990,7 +1990,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var priceEl = item.querySelector('.menu-price');
     if (!nameEl || !priceEl) return;
 
-    var name = nameEl.textContent.trim();
+    var name = Array.from(nameEl.childNodes).filter(function(n){return n.nodeType===3;}).map(function(n){return n.textContent.trim();}).join("").trim();
     var priceText = priceEl.textContent.trim(); // e.g. "720/kg"
     var parts = priceText.split('/');
     var price = parseFloat(parts[0]);
@@ -2136,7 +2136,7 @@ function toggleCS() {
     panel.classList.add('open');
     trigger.classList.add('open');
     buildCSList('');
-    setTimeout(function() { document.getElementById('csSearch').focus(); }, 50);
+    // Do NOT auto-focus search — avoids keyboard popping up on mobile
   }
 }
 
@@ -2512,7 +2512,14 @@ function obRemove(idx) {
 
 function obClearAll() {
   if (obItems.length === 0) return;
-  if (confirm('Clear all items from this order?')) { obItems = []; obRender(); }
+  if (confirm('Clear all items from this order?')) {
+    obItems = [];
+    orderItems = [];           // wipe committed order too
+    renderOrderTable();        // clear the Order Details summary
+    updateOrderCount();        // reset nav badge
+    document.getElementById('orderDetailsFg').style.display = 'none'; // hide summary card
+    obRender();                // refresh modal table
+  }
 }
 
 function obSaveOrder() {
@@ -2528,7 +2535,12 @@ function obSaveOrder() {
   updateOrderCount();
   // Show the Order Details section
   document.getElementById('orderDetailsFg').style.display = 'block';
-  closeOrderBuilder();
+  // Close modal explicitly
+  var overlay = document.getElementById('orderBuilderOverlay');
+  overlay.classList.remove('open');
+  overlay.style.display = 'none';
+  document.body.style.overflow = '';
+  closeCS();
 }
 
 document.addEventListener('keydown', function(e) {
