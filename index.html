@@ -74,19 +74,38 @@
 
   /* ── iPad / tablet nav (769px–1024px) ── */
   @media (min-width: 769px) and (max-width: 1024px) {
-    /* Show short "Map" label instead of full address */
+    /* Show "Map" label, hide full address */
     .desktop-addr { display: none !important; }
     .tablet-addr  { display: inline-flex !important; }
 
-    /* Shrink nav padding to give more room */
-    nav { padding: 0 3%; }
+    /* Nav: anchor items left; badge remains absolute-centred without clashing */
+    nav { padding: 0 3%; justify-content: flex-start; }
 
-    /* Compact nav-links gap so WA number doesn't overflow */
-    .nav-links { gap: 18px; }
+    /* Pull WA out of absolute positioning — flow inline right after Map */
+    .nav-wa-mobile-center {
+      display: flex !important;
+      position: static !important;
+      transform: none !important;
+      top: auto !important; right: auto !important;
+      margin-left: 14px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      gap: 6px;
+      align-items: center;
+      text-decoration: none;
+      color: var(--text-main);
+      white-space: nowrap;
+      z-index: 2;
+      height: auto;
+    }
+    .nav-wa-mobile-center:hover { color: #25D366; }
+
+    /* Hide the WA item inside nav-links on iPad */
+    .nav-wa-desktop { display: none !important; }
+
+    /* Push nav-links to the far right so badge stays centred in the gap */
+    .nav-links { margin-left: auto; gap: 18px; }
     .nav-links a { font-size: 0.82rem; }
-
-    /* Hide desktop WA number text — show icon + short number */
-    .wa-num { font-size: 0.75rem; }
   }
 
   /* NAVIGATION - Glassmorphism */
