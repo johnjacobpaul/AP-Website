@@ -2557,187 +2557,228 @@ function downloadMenuCard() {
   function drawIcon(ctx, pathData, x, y, size, color, fillRule) {
     var sc = size / 24;
     ctx.save();
-    ctx.translate(x, y);
-    ctx.scale(sc, sc);
+    ctx.translate(x, y); ctx.scale(sc, sc);
     ctx.fillStyle = color;
     ctx.fill(new Path2D(pathData), fillRule || 'nonzero');
     ctx.restore();
   }
 
-  var logo = new Image();
-  var logoLoaded = false;
-  var rendered = false;
+  // Load logo + header background image; render only when both have settled
+  var logo      = new Image();
+  var headerBg  = new Image();
+  var settled   = 0;
+  var rendered  = false;
 
-  function tryRender() {
-    if (rendered) return;
+  function onSettled() {
+    settled++;
+    if (settled >= 2 && !rendered) doRender();
+  }
+  function doRender() {
     rendered = true;
-    // Delay to let browser paint "Generating..." before blocking
     setTimeout(function() {
       document.fonts.ready.then(function() {
-        setTimeout(function() { renderCard(logoLoaded ? logo : null); }, 20);
+        setTimeout(function() {
+          renderCard(
+            logo.naturalWidth     > 0 ? logo     : null,
+            headerBg.naturalWidth > 0 ? headerBg : null
+          );
+        }, 20);
       });
     }, 60);
   }
 
-  logo.onload  = function() { logoLoaded = true; tryRender(); };
-  logo.onerror = function() { tryRender(); };
-  logo.src = 'logo.png';
-  setTimeout(tryRender, 1500);
+  logo.onload     = logo.onerror     = onSettled;
+  headerBg.onload = headerBg.onerror = onSettled;
+  logo.src     = 'logo.png';
+  headerBg.src = 'images/header.png';
+  // Safety fallback if images stall beyond 2.5 s
+  setTimeout(function() { if (!rendered) doRender(); }, 2500);
 
-  function renderCard(logoImg) {
-    // ------------------------------------------------------------------
-    // Canvas: 1120 x 1040  (similar proportions to the existing card)
-    // 3-column layout: [4PM Kadi] | [Podi + Pickles] | [Ready to Eat]
-    // ------------------------------------------------------------------
-    var W        = 1120;
-    var H        = 1040;
-    var HPAD     = 36;          // outer left/right padding
-    var COL_GAP  = 20;
-    var COL_W    = 336;         // (1120 - 36*2 - 20*2) / 3 = 336
-    var HEADER_H = 222;
-    var SPAD_TOP = 20;
-    var CAT_H    = 38;          // category title zone height
-    var ITEM_H   = 28;          // per-item row height
-    var CAT_GAP  = 14;          // space between stacked categories
+  // -----------------------------------------------------------------------
+  function renderCard(logoImg, headerImg) {
+    // Canvas — roughly square, matching the existing card proportions
+    var W         = 1120;
+    var HPAD      = 36;
+    var COL_GAP   = 20;
+    var COL_W     = 336;   // (1120 - 36*2 - 20*2) / 3 = 336
+    var HEADER_H  = 380;   // tall enough for image + logo + brand + tagline
+    var FOOTER_H  = 112;   // dark purple footer
+    var SPAD_TOP  = 18;
+    var CAT_H     = 38;
+    var ITEM_H    = 28;
+    var CAT_GAP   = 14;
+    // Col 2 content height: 18 + 38 + 6*28 + 14 + 38 + 15*28 = 696 px
+    var H         = HEADER_H + 696 + 24 + FOOTER_H; // 1212 → use 1220
+    H = 1220;
 
-    // Column left-edge x coords
     var CX = [HPAD, HPAD + COL_W + COL_GAP, HPAD + 2*(COL_W + COL_GAP)];
 
     var c = document.createElement('canvas');
     c.width = W; c.height = H;
     var ctx = c.getContext('2d');
 
-    // =====================================================================
-    // BACKGROUND
-    // =====================================================================
+    // ==================================================================
+    // BACKGROUND (lavender, for content area)
+    // ==================================================================
     ctx.fillStyle = '#f0ecf8';
     ctx.fillRect(0, 0, W, H);
 
-    // Blob accents (2 simple ones — fast)
-    ctx.save(); ctx.globalAlpha = 0.11;
-    var b1 = ctx.createRadialGradient(0, H * 0.45, 0, 0, H * 0.45, 340);
+    // Subtle blob accents in the content zone only
+    ctx.save(); ctx.globalAlpha = 0.10;
+    var b1 = ctx.createRadialGradient(0, HEADER_H + 300, 0, 0, HEADER_H + 300, 340);
     b1.addColorStop(0, '#e8d8f8'); b1.addColorStop(1, 'rgba(240,236,248,0)');
-    ctx.fillStyle = b1; ctx.beginPath(); ctx.arc(0, H*0.45, 340, 0, Math.PI*2); ctx.fill();
-    var b2 = ctx.createRadialGradient(W, H * 0.65, 0, W, H * 0.65, 380);
+    ctx.fillStyle = b1; ctx.beginPath(); ctx.arc(0, HEADER_H+300, 340, 0, Math.PI*2); ctx.fill();
+    var b2 = ctx.createRadialGradient(W, HEADER_H + 600, 0, W, HEADER_H + 600, 380);
     b2.addColorStop(0, '#dde0f8'); b2.addColorStop(1, 'rgba(240,236,248,0)');
-    ctx.fillStyle = b2; ctx.beginPath(); ctx.arc(W, H*0.65, 380, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = b2; ctx.beginPath(); ctx.arc(W, HEADER_H+600, 380, 0, Math.PI*2); ctx.fill();
     ctx.restore();
 
     // Outer border frame
     ctx.save();
-    ctx.strokeStyle = 'rgba(207,197,229,0.7)'; ctx.lineWidth = 2;
+    ctx.strokeStyle = 'rgba(207,197,229,0.70)'; ctx.lineWidth = 2;
     ctx.strokeRect(10, 10, W-20, H-20);
-    // Inner border (double-line effect)
     ctx.strokeStyle = 'rgba(233,30,99,0.18)'; ctx.lineWidth = 1;
     ctx.strokeRect(16, 16, W-32, H-32);
     ctx.restore();
-
-    // Corner rosette dots
+    // Corner dots
     [[22,22],[W-22,22],[22,H-22],[W-22,H-22]].forEach(function(p){
-      ctx.save();
-      ctx.fillStyle = 'rgba(233,30,99,0.30)';
-      ctx.beginPath(); ctx.arc(p[0],p[1],3.5,0,Math.PI*2); ctx.fill();
-      ctx.restore();
+      ctx.save(); ctx.fillStyle = 'rgba(233,30,99,0.28)';
+      ctx.beginPath(); ctx.arc(p[0],p[1],3.5,0,Math.PI*2); ctx.fill(); ctx.restore();
     });
 
-    // =====================================================================
-    // HEADER — logo floats on lavender, no dark band
-    // =====================================================================
-    // -- Top contact strip (small) --
+    // ==================================================================
+    // HEADER — food image underlay at 50% opacity
+    // ==================================================================
+    if (headerImg) {
+      ctx.save();
+      ctx.beginPath(); ctx.rect(0, 0, W, HEADER_H); ctx.clip();
+      ctx.globalAlpha = 0.50;
+      // Cover-crop: fit height if image is wider than header
+      var ia = headerImg.naturalWidth / headerImg.naturalHeight;
+      var ha = W / HEADER_H;
+      var dw, dh, dx, dy;
+      if (ia > ha) {
+        dh = HEADER_H; dw = dh * ia;
+        dx = (W - dw) / 2; dy = 0;
+      } else {
+        dw = W; dh = W / ia;
+        dx = 0; dy = (HEADER_H - dh) / 2;
+      }
+      ctx.drawImage(headerImg, dx, dy, dw, dh);
+      ctx.restore();
+    }
+
+    // -- Contact strip (top of header, overlaid on image) --
     var ICON_SZ = 19;
     var TY = 22;
 
-    // Maps icon + address (left)
-    drawIcon(ctx, MAPS_PATH, HPAD + 4, TY, ICON_SZ, '#ea4335', 'evenodd');
+    // Semi-transparent backing pill for readability over the image
     ctx.save();
-    ctx.textBaseline = 'top'; ctx.textAlign = 'left';
-    ctx.fillStyle = '#2c1f4a'; ctx.font = '500 12.5px "Inter",sans-serif';
-    ctx.fillText('Thudien House, Kandanad, Ernakulam 682305', HPAD + ICON_SZ + 7, TY + 1);
+    ctx.fillStyle = 'rgba(248,245,253,0.72)';
+    ctx.fillRect(HPAD, TY - 4, 330, 34);
+    ctx.fillRect(W - HPAD - 230, TY - 4, 230, 34);
     ctx.restore();
 
-    // WA icon + number (right)
+    // Maps icon + address
+    drawIcon(ctx, MAPS_PATH, HPAD + 5, TY, ICON_SZ, '#ea4335', 'evenodd');
     ctx.save();
-    ctx.font = '500 12.5px "Inter",sans-serif';
+    ctx.textBaseline = 'top'; ctx.textAlign = 'left';
+    ctx.fillStyle = '#2c1f4a'; ctx.font = '500 12px "Inter",sans-serif';
+    ctx.fillText('Thudien House, Kandanad, Ernakulam 682305', HPAD + ICON_SZ + 9, TY + 2);
+    ctx.restore();
+
+    // WA icon + number
+    ctx.save();
+    ctx.font = '500 12px "Inter",sans-serif';
     var numW = ctx.measureText('+91 97785 38410').width;
     ctx.restore();
     var waRight = W - HPAD - 4;
-    drawIcon(ctx, WA_PATH, waRight - numW - ICON_SZ - 6, TY, ICON_SZ, '#25D366');
+    drawIcon(ctx, WA_PATH, waRight - numW - ICON_SZ - 7, TY, ICON_SZ, '#25D366');
     ctx.save();
     ctx.textBaseline = 'top'; ctx.textAlign = 'right';
-    ctx.fillStyle = '#2c1f4a'; ctx.font = '500 12.5px "Inter",sans-serif';
-    ctx.fillText('+91 97785 38410', waRight, TY + 1);
+    ctx.fillStyle = '#2c1f4a'; ctx.font = '500 12px "Inter",sans-serif';
+    ctx.fillText('+91 97785 38410', waRight, TY + 2);
     ctx.font = '400 10.5px "Inter",sans-serif';
-    ctx.fillStyle = 'rgba(37,211,102,0.9)';
-    ctx.fillText('wa.me/919778538410', waRight, TY + 19);
+    ctx.fillStyle = 'rgba(20,160,60,0.95)';
+    ctx.fillText('wa.me/919778538410', waRight, TY + 18);
     var urlW = ctx.measureText('wa.me/919778538410').width;
-    ctx.fillStyle = 'rgba(37,211,102,0.35)';
-    ctx.fillRect(waRight - urlW, TY + 19 + 12, urlW, 1);
+    ctx.fillStyle = 'rgba(20,160,60,0.40)';
+    ctx.fillRect(waRight - urlW, TY + 30, urlW, 1);
     ctx.restore();
 
-    // -- Logo circle --
-    var LX = W / 2, LY = 112;
+    // -- Logo (256 px tall, freeform, centered) --
+    var LX = W / 2;
+    var LOGO_H = 256;
+    var logoTopY = 58;                   // start just below contact strip
+    var LY = logoTopY + LOGO_H / 2;     // centre at y = 58+128 = 186
 
-    // Logo — freeform, no clipping
     if (logoImg && logoImg.naturalWidth > 0) {
-      var logoH = 128;
-      var logoW = Math.round(logoH * logoImg.naturalWidth / logoImg.naturalHeight);
-      ctx.drawImage(logoImg, LX - logoW/2, LY - logoH/2, logoW, logoH);
+      var logoW = Math.round(LOGO_H * logoImg.naturalWidth / logoImg.naturalHeight);
+      ctx.drawImage(logoImg, LX - logoW/2, logoTopY, logoW, LOGO_H);
     } else {
       ctx.save();
-      ctx.fillStyle = '#e91e63'; ctx.font = 'italic bold 30px "Lora",sans-serif';
+      ctx.fillStyle = '#c2185b'; ctx.font = 'italic bold 34px "Lora",serif';
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText("Ammu's", LX, LY);
       ctx.restore();
     }
 
-    // -- Brand name --
+    // -- Brand name & tagline — positioned BELOW logo, well clear --
+    //    Logo bottom = logoTopY + LOGO_H = 314
+    //    Brand name y = 322   (8 px breathing room)
+    //    Tagline    y = 352   (30 px below brand name baseline)
+    //    Separator  y = 374   (well below tagline bottom of ~365)
+    var brandY = logoTopY + LOGO_H + 8;   // 322
     ctx.save();
     ctx.textAlign = 'center'; ctx.textBaseline = 'top';
     ctx.fillStyle = '#c2185b';
-    ctx.font = 'italic bold 26px "Lora",Georgia,serif';
-    ctx.fillText("Ammu\u2019s Food Products", W/2, LY + 68);
-    ctx.fillStyle = '#6b5d88';
+    ctx.font = 'italic bold 24px "Lora",Georgia,serif';
+    ctx.fillText("Ammu\u2019s Food Products", W/2, brandY);
+    ctx.fillStyle = '#4a3570';
     ctx.font = '400 12px "Inter",sans-serif';
-    ctx.fillText('Traditional Kerala Flavours \u00B7 Made Fresh in Small Batches', W/2, LY + 100);
+    ctx.fillText('Traditional Kerala Flavours \u00B7 Made Fresh in Small Batches', W/2, brandY + 30);
     ctx.restore();
 
-    // -- Single thin separator below tagline --
-    var SEP = HEADER_H - 10;
+    // Thin separator — positioned 12 px below tagline bottom (365+9=374)
     ctx.save();
-    ctx.strokeStyle = 'rgba(233,30,99,0.30)'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.moveTo(HPAD+24, SEP); ctx.lineTo(W-HPAD-24, SEP); ctx.stroke();
+    ctx.strokeStyle = 'rgba(233,30,99,0.35)'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(HPAD+24, brandY + 48);
+    ctx.lineTo(W-HPAD-24, brandY + 48);
+    ctx.stroke();
     ctx.restore();
 
-    // =====================================================================
+    // ==================================================================
     // CONTENT — 3 columns
-    // =====================================================================
+    // ==================================================================
+    var contentTop = HEADER_H + SPAD_TOP;  // 380 + 18 = 398
+
     // Vertical column dividers
     [1, 2].forEach(function(i) {
       var dx = CX[i] - COL_GAP/2;
       ctx.save();
       ctx.strokeStyle = 'rgba(207,197,229,0.55)'; ctx.lineWidth = 1;
       ctx.setLineDash([5, 9]);
-      ctx.beginPath(); ctx.moveTo(dx, HEADER_H+24); ctx.lineTo(dx, 940); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(dx, HEADER_H + 24);
+      ctx.lineTo(dx, H - FOOTER_H - 20);
+      ctx.stroke();
       ctx.restore();
     });
 
-    // Helper: draw one category block, returns new y after items
+    // drawCategory: returns the y value after the last item
     function drawCategory(gx, y, group, noteLines) {
-      // Italic serif heading
       ctx.save();
       ctx.fillStyle = '#c2185b';
-      ctx.font = 'italic bold 22px "Lora",Georgia,serif';
+      ctx.font = 'italic bold 20px "Lora",Georgia,serif';
       ctx.textAlign = 'center'; ctx.textBaseline = 'top';
       ctx.fillText(group.group, gx + COL_W/2, y);
-      // Underline
-      ctx.strokeStyle = 'rgba(194,24,91,0.3)'; ctx.lineWidth = 1.2;
+      ctx.strokeStyle = 'rgba(194,24,91,0.28)'; ctx.lineWidth = 1.2;
       ctx.setLineDash([]);
-      ctx.beginPath(); ctx.moveTo(gx, y+26); ctx.lineTo(gx+COL_W, y+26); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(gx, y+24); ctx.lineTo(gx+COL_W, y+24); ctx.stroke();
       ctx.restore();
-
       y += CAT_H;
 
-      // Optional italic note lines (e.g. for Ready to Eat)
       if (noteLines && noteLines.length) {
         ctx.save();
         ctx.fillStyle = '#6b5d88'; ctx.font = 'italic 10.5px "Inter",sans-serif';
@@ -2747,120 +2788,119 @@ function downloadMenuCard() {
         y += 4;
       }
 
-      // Items
       group.items.forEach(function(item, idx) {
-        var ul = item.unit === 'person' ? 'pp' : item.unit;
-        var priceStr = '\u20B9 ' + item.price + ' / ' + ul;
+        var ul  = item.unit === 'person' ? 'pp' : item.unit;
+        var ps  = '\u20B9 ' + item.price + ' / ' + ul;
 
-        // Subtle alternating row tint
         if (idx % 2 === 0) {
           ctx.fillStyle = 'rgba(207,197,229,0.10)';
-          ctx.fillRect(gx, y + 1, COL_W, ITEM_H - 1);
+          ctx.fillRect(gx, y+1, COL_W, ITEM_H-1);
         }
 
         ctx.save();
-
-        // Price (right-aligned, muted purple)
+        // Price (dark pink, right-aligned)
         ctx.font = '500 12px "Inter",sans-serif';
-        var pW = ctx.measureText(priceStr).width;
+        var pW = ctx.measureText(ps).width;
         ctx.fillStyle = '#c2185b'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-        ctx.fillText(priceStr, gx + COL_W, y + ITEM_H/2);
+        ctx.fillText(ps, gx+COL_W, y+ITEM_H/2);
 
-        // Name (left-aligned, deep violet)
+        // Name (bold, left-aligned, truncated)
         var maxW = COL_W - pW - 18;
         ctx.font = '600 13px "Inter",sans-serif';
         ctx.fillStyle = '#2c1f4a'; ctx.textAlign = 'left';
         var nd = item.name;
         while (ctx.measureText(nd).width > maxW && nd.length > 1) nd = nd.slice(0,-1);
         if (nd.length < item.name.length) nd += '\u2026';
-        ctx.fillText(nd, gx, y + ITEM_H/2);
+        ctx.fillText(nd, gx, y+ITEM_H/2);
 
         // Dotted leader
         var nW = ctx.measureText(nd).width;
         ctx.save();
         ctx.setLineDash([1,5]); ctx.strokeStyle='#6b5d88'; ctx.globalAlpha=0.18; ctx.lineWidth=1;
         ctx.beginPath();
-        ctx.moveTo(gx + nW + 6, y + ITEM_H/2 + 1);
-        ctx.lineTo(gx + COL_W - pW - 6, y + ITEM_H/2 + 1);
+        ctx.moveTo(gx+nW+6, y+ITEM_H/2+1);
+        ctx.lineTo(gx+COL_W-pW-6, y+ITEM_H/2+1);
         ctx.stroke();
         ctx.restore();
 
         ctx.restore();
         y += ITEM_H;
       });
-
       return y;
     }
 
-    // Col 1: 4PM Kadi
-    drawCategory(CX[0], HEADER_H + SPAD_TOP, CS_DATA[0], null);
+    // Render 3 columns
+    drawCategory(CX[0], contentTop, CS_DATA[0], null);
 
-    // Col 2: Podi then Pickles
-    var y2 = HEADER_H + SPAD_TOP;
+    var y2 = contentTop;
     y2 = drawCategory(CX[1], y2, CS_DATA[1], null);
     drawCategory(CX[1], y2 + CAT_GAP, CS_DATA[2], null);
 
-    // Col 3: Ready to Eat (with note)
-    drawCategory(CX[2], HEADER_H + SPAD_TOP, CS_DATA[3], [
+    drawCategory(CX[2], contentTop, CS_DATA[3], [
       'Note: Per-person (pp) items include',
       '400g food (Pidi or Fried Rice) + curry.'
     ]);
 
-    // =====================================================================
-    // CONTACT STRIP (replaces dark footer — stays on lavender)
-    // =====================================================================
-    var CSY = 950;  // top of contact strip
+    // ==================================================================
+    // FOOTER — dark purple #3d2472
+    // ==================================================================
+    var FY = H - FOOTER_H;
+    ctx.fillStyle = '#3d2472';
+    ctx.fillRect(0, FY, W, FOOTER_H);
+    // Pink accent top edge
+    ctx.fillStyle = '#e91e63';
+    ctx.fillRect(0, FY, W, 3);
 
-    // Thin separator above contact
-    ctx.save();
-    ctx.strokeStyle = 'rgba(233,30,99,0.35)'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.moveTo(HPAD+24, CSY-6); ctx.lineTo(W-HPAD-24, CSY-6); ctx.stroke();
-    ctx.strokeStyle = 'rgba(207,197,229,0.5)'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(HPAD+24, CSY-2); ctx.lineTo(W-HPAD-24, CSY-2); ctx.stroke();
-    ctx.restore();
-
-    // "For Orders Contact:" heading
+    // "For Orders Contact:"
     ctx.save();
     ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-    ctx.fillStyle = '#2c1f4a'; ctx.font = 'bold 13px "Inter",sans-serif';
-    ctx.fillText('For Orders Contact:', W/2, CSY + 4);
+    ctx.fillStyle = 'rgba(255,255,255,0.90)';
+    ctx.font = 'bold 13px "Inter",sans-serif';
+    ctx.fillText('For Orders Contact:', W/2, FY + 12);
     ctx.restore();
 
-    // WA icon + number centred
-    var ctCenterX = W/2;
+    // WA block (centered)
     ctx.save();
-    ctx.font = '600 14.5px "Inter",sans-serif';
-    var ctNumW = ctx.measureText('+91 97785 38410').width;
+    ctx.font = '600 14px "Inter",sans-serif';
+    var fNumW = ctx.measureText('+91 97785 38410').width;
     ctx.restore();
-    var ctBlockW = 22 + 6 + ctNumW;
-    drawIcon(ctx, WA_PATH, ctCenterX - ctBlockW/2, CSY + 24, 22, '#25D366');
+    var fWABlockW = 22 + 8 + fNumW;
+    drawIcon(ctx, WA_PATH, W/2 - fWABlockW/2, FY + 34, 22, '#25D366');
     ctx.save();
     ctx.textBaseline = 'top'; ctx.textAlign = 'left';
-    ctx.fillStyle = '#2c1f4a'; ctx.font = '600 14.5px "Inter",sans-serif';
-    ctx.fillText('+91 97785 38410', ctCenterX - ctBlockW/2 + 22 + 6, CSY + 25);
+    ctx.fillStyle = '#ffffff'; ctx.font = '600 14px "Inter",sans-serif';
+    ctx.fillText('+91 97785 38410', W/2 - fWABlockW/2 + 30, FY + 35);
     ctx.restore();
 
-    // Maps icon + address centred below
+    // Address block (centered)
     ctx.save();
-    ctx.font = '400 12px "Inter",sans-serif';
-    var ctAddrW = ctx.measureText("Ammu\u2019s Food Products, Kandanad, Ernakulam, Kerala 682305").width;
+    ctx.font = '400 11.5px "Inter",sans-serif';
+    var addrTxt = "Ammu\u2019s Food Products, Kandanad, Ernakulam, Kerala 682305";
+    var addrW = ctx.measureText(addrTxt).width;
     ctx.restore();
-    var ctAddrBlockW = 18 + 5 + ctAddrW;
-    drawIcon(ctx, MAPS_PATH, ctCenterX - ctAddrBlockW/2, CSY + 52, 18, '#ea4335', 'evenodd');
+    var fAddrBlockW = 18 + 6 + addrW;
+    drawIcon(ctx, MAPS_PATH, W/2 - fAddrBlockW/2, FY + 62, 18, '#ea4335', 'evenodd');
     ctx.save();
     ctx.textBaseline = 'top'; ctx.textAlign = 'left';
-    ctx.fillStyle = '#2c1f4a'; ctx.font = '400 12px "Inter",sans-serif';
-    ctx.fillText("Ammu\u2019s Food Products, Kandanad, Ernakulam, Kerala 682305", ctCenterX - ctAddrBlockW/2 + 18 + 5, CSY + 54);
+    ctx.fillStyle = 'rgba(255,255,255,0.78)'; ctx.font = '400 11.5px "Inter",sans-serif';
+    ctx.fillText(addrTxt, W/2 - fAddrBlockW/2 + 24, FY + 64);
     ctx.restore();
 
-    // Copyright line at very bottom
+    // wa.me link
     ctx.save();
-    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-    ctx.fillStyle = 'rgba(107,93,136,0.50)'; ctx.font = '400 10.5px "Inter",sans-serif';
-    ctx.fillText('\u00A9 2025 Ammu\u2019s Food Products \u00B7 Made with love, served with tradition', W/2, H - 14);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillStyle = 'rgba(37,211,102,0.75)'; ctx.font = '400 10.5px "Inter",sans-serif';
+    ctx.fillText('wa.me/919778538410', W/2, FY + 82);
     ctx.restore();
 
-    // ---- Trigger download via requestAnimationFrame to avoid jank ----
+    // Copyright
+    ctx.save();
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillStyle = 'rgba(255,255,255,0.35)'; ctx.font = '400 10px "Inter",sans-serif';
+    ctx.fillText('\u00A9 2025 Ammu\u2019s Food Products \u00B7 Made with love, served with tradition', W/2, FY + 97);
+    ctx.restore();
+
+    // ---- Download ----
     requestAnimationFrame(function() {
       c.toBlob(function(blob) {
         if (!blob) {
