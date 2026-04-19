@@ -2675,53 +2675,37 @@ function downloadMenuCard() {
     ctx.restore();
 
     // -- Logo circle --
-    var LX = W / 2, LY = 118, LR = 54;
+    var LX = W / 2, LY = 112;
 
-    // Shadow halo
-    ctx.save();
-    ctx.shadowColor = 'rgba(44,31,74,0.18)';
-    ctx.shadowBlur = 22; ctx.shadowOffsetY = 5;
-    ctx.beginPath(); ctx.arc(LX, LY, LR + 5, 0, Math.PI*2);
-    ctx.fillStyle = '#f8f5fd'; ctx.fill();
-    ctx.restore();
-
-    // Pink ring
-    ctx.save();
-    ctx.beginPath(); ctx.arc(LX, LY, LR + 5, 0, Math.PI*2);
-    ctx.strokeStyle = 'rgba(233,30,99,0.40)'; ctx.lineWidth = 2.5; ctx.stroke();
-    ctx.restore();
-
-    // Clip + draw logo
-    ctx.save();
-    ctx.beginPath(); ctx.arc(LX, LY, LR, 0, Math.PI*2); ctx.clip();
+    // Logo — freeform, no clipping
     if (logoImg && logoImg.naturalWidth > 0) {
-      ctx.drawImage(logoImg, LX-LR, LY-LR, LR*2, LR*2);
+      var logoH = 128;
+      var logoW = Math.round(logoH * logoImg.naturalWidth / logoImg.naturalHeight);
+      ctx.drawImage(logoImg, LX - logoW/2, LY - logoH/2, logoW, logoH);
     } else {
-      ctx.fillStyle = '#e91e63'; ctx.fillRect(LX-LR, LY-LR, LR*2, LR*2);
-      ctx.fillStyle = '#fff'; ctx.font = 'bold 24px "Inter",sans-serif';
+      ctx.save();
+      ctx.fillStyle = '#e91e63'; ctx.font = 'italic bold 30px "Lora",sans-serif';
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText('A', LX, LY);
+      ctx.fillText("Ammu's", LX, LY);
+      ctx.restore();
     }
-    ctx.restore();
 
-    // -- Brand name (well clear of the separator line) --
+    // -- Brand name --
     ctx.save();
     ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-    ctx.fillStyle = '#2c1f4a';
-    ctx.font = 'bold 26px "Lora",Georgia,serif';
-    ctx.fillText("Ammu\u2019s Food Products", W/2, LY + LR + 12);
+    ctx.fillStyle = '#c2185b';
+    ctx.font = 'italic bold 26px "Lora",Georgia,serif';
+    ctx.fillText("Ammu\u2019s Food Products", W/2, LY + 68);
     ctx.fillStyle = '#6b5d88';
     ctx.font = '400 12px "Inter",sans-serif';
-    ctx.fillText('Traditional Kerala Flavours \u00B7 Made Fresh in Small Batches', W/2, LY + LR + 44);
+    ctx.fillText('Traditional Kerala Flavours \u00B7 Made Fresh in Small Batches', W/2, LY + 100);
     ctx.restore();
 
-    // -- Header separator (double line, clear of brand text) --
+    // -- Single thin separator below tagline --
     var SEP = HEADER_H - 10;
     ctx.save();
-    ctx.strokeStyle = 'rgba(233,30,99,0.40)'; ctx.lineWidth = 1.5;
+    ctx.strokeStyle = 'rgba(233,30,99,0.30)'; ctx.lineWidth = 1.5;
     ctx.beginPath(); ctx.moveTo(HPAD+24, SEP); ctx.lineTo(W-HPAD-24, SEP); ctx.stroke();
-    ctx.strokeStyle = 'rgba(207,197,229,0.55)'; ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(HPAD+24, SEP+4); ctx.lineTo(W-HPAD-24, SEP+4); ctx.stroke();
     ctx.restore();
 
     // =====================================================================
@@ -2779,12 +2763,12 @@ function downloadMenuCard() {
         // Price (right-aligned, muted purple)
         ctx.font = '500 12px "Inter",sans-serif';
         var pW = ctx.measureText(priceStr).width;
-        ctx.fillStyle = '#6b5d88'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#c2185b'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
         ctx.fillText(priceStr, gx + COL_W, y + ITEM_H/2);
 
         // Name (left-aligned, deep violet)
         var maxW = COL_W - pW - 18;
-        ctx.font = '400 13px "Inter",sans-serif';
+        ctx.font = '600 13px "Inter",sans-serif';
         ctx.fillStyle = '#2c1f4a'; ctx.textAlign = 'left';
         var nd = item.name;
         while (ctx.measureText(nd).width > maxW && nd.length > 1) nd = nd.slice(0,-1);
