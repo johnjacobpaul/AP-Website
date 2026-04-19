@@ -71,43 +71,6 @@
     display: none;
   }
 
-
-  /* ── iPad / tablet nav (769px–1024px) ── */
-  @media (min-width: 769px) and (max-width: 1024px) {
-    /* Show "Map" label, hide full address */
-    .desktop-addr { display: none !important; }
-    .tablet-addr  { display: inline-flex !important; }
-
-    /* Nav: anchor items left; badge remains absolute-centred without clashing */
-    nav { padding: 0 3%; justify-content: flex-start; }
-
-    /* Pull WA out of absolute positioning — flow inline right after Map */
-    .nav-wa-mobile-center {
-      display: flex !important;
-      position: static !important;
-      transform: none !important;
-      top: auto !important; right: auto !important;
-      margin-left: 14px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      gap: 6px;
-      align-items: center;
-      text-decoration: none;
-      color: var(--text-main);
-      white-space: nowrap;
-      z-index: 2;
-      height: auto;
-    }
-    .nav-wa-mobile-center:hover { color: #25D366; }
-
-    /* Hide the WA item inside nav-links on iPad */
-    .nav-wa-desktop { display: none !important; }
-
-    /* Push nav-links to the far right so badge stays centred in the gap */
-    .nav-links { margin-left: auto; gap: 18px; }
-    .nav-links a { font-size: 0.82rem; }
-  }
-
   /* NAVIGATION - Glassmorphism */
   nav {
     background: rgba(240, 236, 248, 0.88); /* Lavender glass */
@@ -373,7 +336,7 @@
   }
   .sec-header {
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 40px;
   }
   .sec-title {
     font-size: clamp(2rem, 4vw, 3rem);
@@ -383,12 +346,11 @@
 
   /* HISTORY SECTION */
   #s-history { background: var(--bg-alt); }
-  #s-history .section-inner { padding: 48px 5%; }
   .story-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: center;
+    gap: 60px;
+    align-items: flex-start;
   }
   .story-text p {
     font-size: 1.05rem;
@@ -401,12 +363,12 @@
   .generations-container {
     position: relative;
     background: var(--bg-surface);
-    padding: 28px 32px 28px 24px;
+    padding: 40px 40px 40px 30px;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-soft);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 36px;
   }
   .generations-container h3 {
     font-family: 'Lora', serif;
@@ -418,7 +380,7 @@
   /* The subtle vertical connecting line */
   .gen-connector {
     position: absolute;
-    left: 85px; /* Aligns with centre of 110px photos (30px padding + 55px half width) */
+    left: 120px; /* Aligns with centre of 180px photos (30px padding + 90px half width) */
     top: 150px;
     bottom: 90px;
     width: 2px;
@@ -433,24 +395,24 @@
     z-index: 2;
   }
   .gen-photo {
-    width: 110px;
-    height: 110px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     border: 4px solid var(--bg-surface);
     background: var(--bg-alt);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
+    font-size: 4.8rem;
     position: relative;
     overflow: hidden;
     flex-shrink: 0;
     box-shadow: 0 8px 24px rgba(44, 31, 74, 0.15);
   }
   .gen-info h4 {
-    font-size: 1.05rem;
+    font-size: 1.3rem;
     color: var(--text-main);
-    margin-bottom: 3px;
+    margin-bottom: 4px;
   }
   .gen-info p {
     font-size: 0.95rem;
@@ -1511,7 +1473,6 @@
     <span class="desktop-addr" style="font-size: 0.85rem; line-height: 1.3; font-weight: 500; text-align: left; letter-spacing: 0.02em; display: flex; align-items: center; gap: 6px;">
       <span>Thudien House, Kandanad<br>Ernakulam 682305</span>
     </span>
-    <span class="tablet-addr" style="display: none; font-size: 0.88rem; font-weight: 500; align-items: center; gap: 4px;">Map</span>
     <span class="mobile-addr" style="display: none; font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; align-items: center; gap: 6px;">
       <span>Map</span>
     </span>
@@ -1629,9 +1590,9 @@
     
     <div class="story-grid">
       <div class="story-text">
-        <p style="font-size: 10pt;">Growing up, I often heard stories from my grandmother about <strong>Vavamma</strong>, my great grandmother, and the beautiful food traditions she created in our family. In those days, tea time was always accompanied by freshly prepared snacks from the kitchen. <strong>Vavamma</strong> prepared everything with great care and lots of love.</p>
-        <p style="font-size: 10pt;">As the years passed, my grandmother, affectionately known as <strong> Pushpa Kunjamma </strong>, began to feel that these flavours were too special to stay only within the family. With courage and a lot of hard work, she started making and selling our traditional snacks. For the next <strong>twenty five years</strong> she slowly built the business with care and dedication. Every batch of <strong> Achappam </strong> and <strong> Kozhalappam </strong> carried a piece of her love and effort. She named the business <strong> Ammu’s Food Products </strong> after her dear granddaughter, hoping that the family tradition would continue for many more years.</p>
-        <p style="font-size: 10pt;">Today we continue the same journey with pride and gratitude. Many things around us have changed and the menu has grown bigger, but the way we prepare our food has stayed the same. We still follow the old recipes that were passed down in our family. We take our time and make everything with care, just like our elders did. There are no preservatives and no shortcuts. What you taste is the same honest and traditional flavour of Kerala that has lived in our family kitchen for generations.</p>
+        <p>Nestled in the lush village of <strong>Kandanad, Ernakulam</strong>, Ammu's Food Products was born out of one family's deep love for Kerala's culinary heritage. What began as cherished kitchen rituals: grinding fresh spices at dawn, hand-rolling Kuzhalappam, and slow-cooking pickles. It slowly became something the whole neighbourhood looked forward to.</p>
+        <p>Friends and family began requesting jars of Mango Pickle, bags of Puttu Podi, and boxes of Chakka Chips to take back home. That quiet joy of sharing traditional food is the heart and soul of everything we make.</p>
+        <p>Today, we still follow the same <strong>traditional recipes</strong>. No shortcuts, no preservatives, just the honest flavours of Kerala.</p>
       </div>
       
       <!-- 3 Generations Timeline Block -->
@@ -1646,7 +1607,7 @@
           </div>
           <div class="gen-info">
             <h4>Vavamma</h4>
-            <p style="font-size: 9pt;">The beginning of our family’s kitchen story.</p>
+            <p>Founded the recipe in 1967</p>
           </div>
         </div>
         
@@ -1657,7 +1618,7 @@
           </div>
           <div class="gen-info">
             <h4>Pushpa Jacob</h4>
-            <p style="font-size: 9pt;">The loving grandmother who turned family snacks into <strong> Ammu's Food Products </strong></p>
+            <p>Preserver of Tradition for 30 Years</p>
           </div>
         </div>
         
@@ -1668,7 +1629,7 @@
           </div>
           <div class="gen-info">
             <h4>Hanna Paul</h4>
-            <p style="font-size: 9pt;">Affectionately known as <strong> Ammu </strong> is the fourth generation carrying forward the love and tradition.</p>
+            <p>Continuing the legacy since 2021</p>
           </div>
         </div>
       </div>
@@ -1686,12 +1647,12 @@
       <p style="color:var(--text-muted); margin-top:10px;">Authentic Kerala items made fresh in our family kitchen</p>
     </div>
 
-    <!-- Download PDF Button -->
+    <!-- Download Menu Card Button -->
     <div style="text-align: center; margin-bottom: 50px;">
-      <a href="images/menu-card.png" download class="btn btn-outline" style="background: var(--bg-surface); padding: 10px 24px;">
+      <button id="downloadMenuBtn" onclick="downloadMenuCard()" class="btn btn-outline" style="background: var(--bg-surface); padding: 10px 24px;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         Download Menu Card
-      </a>
+      </button>
     </div>
 
     <!-- Snacks -->
@@ -1804,7 +1765,7 @@
           <input type="tel" id="fphone" placeholder="+91 ">
         </div>
         <div class="fg">
-          <label>Preferred Collection Date</label>
+          <label>Preferred Delivery Date</label>
           <input type="date" id="fdate" onchange="validateDeliveryDate(this)">
           <span id="fdate-hint" style="font-size:0.78rem; color:var(--text-muted); margin-top:4px; display:block;">Earliest available: <strong id="fdate-earliest"></strong> &nbsp;·&nbsp; Sundays unavailable</span>
         </div>
@@ -1843,7 +1804,7 @@
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           <span>Request Order via WhatsApp</span>
         </button>
-        <p class="order-note">🏡 We are a small family kitchen. Everything is prepared fresh in small batches, made only on request. We will do our best to have your order ready by your preferred date. Delivery is available across Ernakulam for a small additional fee upon special request. We'll confirm all details with you on WhatsApp before we begin.</p>
+        <p class="order-note">🏡 We are a small family kitchen. Everything is prepared fresh in small batches, made only on request. We will do our best to have your order ready by your preferred date. Delivery is available across Ernakulam for a small additional fee. We'll confirm all details with you on WhatsApp before we begin.</p>
       </div>
     </div>
   </div>
@@ -2583,6 +2544,357 @@ function obSaveOrder() {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeOrderBuilder();
 });
+
+// ===== DYNAMIC MENU CARD DOWNLOAD =====
+function downloadMenuCard() {
+  var btn = document.getElementById('downloadMenuBtn');
+  var btnHTML = btn ? btn.innerHTML : '';
+  if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Generating…'; }
+
+  var MAPS_PATH = 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z';
+  var WA_PATH   = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z';
+
+  function drawIcon(ctx, pathData, x, y, size, color, fillRule) {
+    var sc = size / 24;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(sc, sc);
+    ctx.fillStyle = color;
+    ctx.fill(new Path2D(pathData), fillRule || 'nonzero');
+    ctx.restore();
+  }
+
+  var logo = new Image();
+  var logoLoaded = false;
+  var rendered = false;
+
+  function tryRender() {
+    if (rendered) return;
+    rendered = true;
+    // Delay to let browser paint "Generating..." before blocking
+    setTimeout(function() {
+      document.fonts.ready.then(function() {
+        setTimeout(function() { renderCard(logoLoaded ? logo : null); }, 20);
+      });
+    }, 60);
+  }
+
+  logo.onload  = function() { logoLoaded = true; tryRender(); };
+  logo.onerror = function() { tryRender(); };
+  logo.src = 'logo.png';
+  setTimeout(tryRender, 1500);
+
+  function renderCard(logoImg) {
+    // ------------------------------------------------------------------
+    // Canvas: 1120 x 1040  (similar proportions to the existing card)
+    // 3-column layout: [4PM Kadi] | [Podi + Pickles] | [Ready to Eat]
+    // ------------------------------------------------------------------
+    var W        = 1120;
+    var H        = 1040;
+    var HPAD     = 36;          // outer left/right padding
+    var COL_GAP  = 20;
+    var COL_W    = 336;         // (1120 - 36*2 - 20*2) / 3 = 336
+    var HEADER_H = 222;
+    var SPAD_TOP = 20;
+    var CAT_H    = 38;          // category title zone height
+    var ITEM_H   = 28;          // per-item row height
+    var CAT_GAP  = 14;          // space between stacked categories
+
+    // Column left-edge x coords
+    var CX = [HPAD, HPAD + COL_W + COL_GAP, HPAD + 2*(COL_W + COL_GAP)];
+
+    var c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    var ctx = c.getContext('2d');
+
+    // =====================================================================
+    // BACKGROUND
+    // =====================================================================
+    ctx.fillStyle = '#f0ecf8';
+    ctx.fillRect(0, 0, W, H);
+
+    // Blob accents (2 simple ones — fast)
+    ctx.save(); ctx.globalAlpha = 0.11;
+    var b1 = ctx.createRadialGradient(0, H * 0.45, 0, 0, H * 0.45, 340);
+    b1.addColorStop(0, '#e8d8f8'); b1.addColorStop(1, 'rgba(240,236,248,0)');
+    ctx.fillStyle = b1; ctx.beginPath(); ctx.arc(0, H*0.45, 340, 0, Math.PI*2); ctx.fill();
+    var b2 = ctx.createRadialGradient(W, H * 0.65, 0, W, H * 0.65, 380);
+    b2.addColorStop(0, '#dde0f8'); b2.addColorStop(1, 'rgba(240,236,248,0)');
+    ctx.fillStyle = b2; ctx.beginPath(); ctx.arc(W, H*0.65, 380, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+
+    // Outer border frame
+    ctx.save();
+    ctx.strokeStyle = 'rgba(207,197,229,0.7)'; ctx.lineWidth = 2;
+    ctx.strokeRect(10, 10, W-20, H-20);
+    // Inner border (double-line effect)
+    ctx.strokeStyle = 'rgba(233,30,99,0.18)'; ctx.lineWidth = 1;
+    ctx.strokeRect(16, 16, W-32, H-32);
+    ctx.restore();
+
+    // Corner rosette dots
+    [[22,22],[W-22,22],[22,H-22],[W-22,H-22]].forEach(function(p){
+      ctx.save();
+      ctx.fillStyle = 'rgba(233,30,99,0.30)';
+      ctx.beginPath(); ctx.arc(p[0],p[1],3.5,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+
+    // =====================================================================
+    // HEADER — logo floats on lavender, no dark band
+    // =====================================================================
+    // -- Top contact strip (small) --
+    var ICON_SZ = 19;
+    var TY = 22;
+
+    // Maps icon + address (left)
+    drawIcon(ctx, MAPS_PATH, HPAD + 4, TY, ICON_SZ, '#ea4335', 'evenodd');
+    ctx.save();
+    ctx.textBaseline = 'top'; ctx.textAlign = 'left';
+    ctx.fillStyle = '#2c1f4a'; ctx.font = '500 12.5px "Inter",sans-serif';
+    ctx.fillText('Thudien House, Kandanad, Ernakulam 682305', HPAD + ICON_SZ + 7, TY + 1);
+    ctx.restore();
+
+    // WA icon + number (right)
+    ctx.save();
+    ctx.font = '500 12.5px "Inter",sans-serif';
+    var numW = ctx.measureText('+91 97785 38410').width;
+    ctx.restore();
+    var waRight = W - HPAD - 4;
+    drawIcon(ctx, WA_PATH, waRight - numW - ICON_SZ - 6, TY, ICON_SZ, '#25D366');
+    ctx.save();
+    ctx.textBaseline = 'top'; ctx.textAlign = 'right';
+    ctx.fillStyle = '#2c1f4a'; ctx.font = '500 12.5px "Inter",sans-serif';
+    ctx.fillText('+91 97785 38410', waRight, TY + 1);
+    ctx.font = '400 10.5px "Inter",sans-serif';
+    ctx.fillStyle = 'rgba(37,211,102,0.9)';
+    ctx.fillText('wa.me/919778538410', waRight, TY + 19);
+    var urlW = ctx.measureText('wa.me/919778538410').width;
+    ctx.fillStyle = 'rgba(37,211,102,0.35)';
+    ctx.fillRect(waRight - urlW, TY + 19 + 12, urlW, 1);
+    ctx.restore();
+
+    // -- Logo circle --
+    var LX = W / 2, LY = 118, LR = 54;
+
+    // Shadow halo
+    ctx.save();
+    ctx.shadowColor = 'rgba(44,31,74,0.18)';
+    ctx.shadowBlur = 22; ctx.shadowOffsetY = 5;
+    ctx.beginPath(); ctx.arc(LX, LY, LR + 5, 0, Math.PI*2);
+    ctx.fillStyle = '#f8f5fd'; ctx.fill();
+    ctx.restore();
+
+    // Pink ring
+    ctx.save();
+    ctx.beginPath(); ctx.arc(LX, LY, LR + 5, 0, Math.PI*2);
+    ctx.strokeStyle = 'rgba(233,30,99,0.40)'; ctx.lineWidth = 2.5; ctx.stroke();
+    ctx.restore();
+
+    // Clip + draw logo
+    ctx.save();
+    ctx.beginPath(); ctx.arc(LX, LY, LR, 0, Math.PI*2); ctx.clip();
+    if (logoImg && logoImg.naturalWidth > 0) {
+      ctx.drawImage(logoImg, LX-LR, LY-LR, LR*2, LR*2);
+    } else {
+      ctx.fillStyle = '#e91e63'; ctx.fillRect(LX-LR, LY-LR, LR*2, LR*2);
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 24px "Inter",sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('A', LX, LY);
+    }
+    ctx.restore();
+
+    // -- Brand name (well clear of the separator line) --
+    ctx.save();
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillStyle = '#2c1f4a';
+    ctx.font = 'bold 26px "Lora",Georgia,serif';
+    ctx.fillText("Ammu\u2019s Food Products", W/2, LY + LR + 12);
+    ctx.fillStyle = '#6b5d88';
+    ctx.font = '400 12px "Inter",sans-serif';
+    ctx.fillText('Traditional Kerala Flavours \u00B7 Made Fresh in Small Batches', W/2, LY + LR + 44);
+    ctx.restore();
+
+    // -- Header separator (double line, clear of brand text) --
+    var SEP = HEADER_H - 10;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(233,30,99,0.40)'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(HPAD+24, SEP); ctx.lineTo(W-HPAD-24, SEP); ctx.stroke();
+    ctx.strokeStyle = 'rgba(207,197,229,0.55)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(HPAD+24, SEP+4); ctx.lineTo(W-HPAD-24, SEP+4); ctx.stroke();
+    ctx.restore();
+
+    // =====================================================================
+    // CONTENT — 3 columns
+    // =====================================================================
+    // Vertical column dividers
+    [1, 2].forEach(function(i) {
+      var dx = CX[i] - COL_GAP/2;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(207,197,229,0.55)'; ctx.lineWidth = 1;
+      ctx.setLineDash([5, 9]);
+      ctx.beginPath(); ctx.moveTo(dx, HEADER_H+24); ctx.lineTo(dx, 940); ctx.stroke();
+      ctx.restore();
+    });
+
+    // Helper: draw one category block, returns new y after items
+    function drawCategory(gx, y, group, noteLines) {
+      // Italic serif heading
+      ctx.save();
+      ctx.fillStyle = '#c2185b';
+      ctx.font = 'italic bold 22px "Lora",Georgia,serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.fillText(group.group, gx + COL_W/2, y);
+      // Underline
+      ctx.strokeStyle = 'rgba(194,24,91,0.3)'; ctx.lineWidth = 1.2;
+      ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(gx, y+26); ctx.lineTo(gx+COL_W, y+26); ctx.stroke();
+      ctx.restore();
+
+      y += CAT_H;
+
+      // Optional italic note lines (e.g. for Ready to Eat)
+      if (noteLines && noteLines.length) {
+        ctx.save();
+        ctx.fillStyle = '#6b5d88'; ctx.font = 'italic 10.5px "Inter",sans-serif';
+        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+        noteLines.forEach(function(l) { ctx.fillText(l, gx, y); y += 13; });
+        ctx.restore();
+        y += 4;
+      }
+
+      // Items
+      group.items.forEach(function(item, idx) {
+        var ul = item.unit === 'person' ? 'pp' : item.unit;
+        var priceStr = '\u20B9 ' + item.price + ' / ' + ul;
+
+        // Subtle alternating row tint
+        if (idx % 2 === 0) {
+          ctx.fillStyle = 'rgba(207,197,229,0.10)';
+          ctx.fillRect(gx, y + 1, COL_W, ITEM_H - 1);
+        }
+
+        ctx.save();
+
+        // Price (right-aligned, muted purple)
+        ctx.font = '500 12px "Inter",sans-serif';
+        var pW = ctx.measureText(priceStr).width;
+        ctx.fillStyle = '#6b5d88'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+        ctx.fillText(priceStr, gx + COL_W, y + ITEM_H/2);
+
+        // Name (left-aligned, deep violet)
+        var maxW = COL_W - pW - 18;
+        ctx.font = '400 13px "Inter",sans-serif';
+        ctx.fillStyle = '#2c1f4a'; ctx.textAlign = 'left';
+        var nd = item.name;
+        while (ctx.measureText(nd).width > maxW && nd.length > 1) nd = nd.slice(0,-1);
+        if (nd.length < item.name.length) nd += '\u2026';
+        ctx.fillText(nd, gx, y + ITEM_H/2);
+
+        // Dotted leader
+        var nW = ctx.measureText(nd).width;
+        ctx.save();
+        ctx.setLineDash([1,5]); ctx.strokeStyle='#6b5d88'; ctx.globalAlpha=0.18; ctx.lineWidth=1;
+        ctx.beginPath();
+        ctx.moveTo(gx + nW + 6, y + ITEM_H/2 + 1);
+        ctx.lineTo(gx + COL_W - pW - 6, y + ITEM_H/2 + 1);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.restore();
+        y += ITEM_H;
+      });
+
+      return y;
+    }
+
+    // Col 1: 4PM Kadi
+    drawCategory(CX[0], HEADER_H + SPAD_TOP, CS_DATA[0], null);
+
+    // Col 2: Podi then Pickles
+    var y2 = HEADER_H + SPAD_TOP;
+    y2 = drawCategory(CX[1], y2, CS_DATA[1], null);
+    drawCategory(CX[1], y2 + CAT_GAP, CS_DATA[2], null);
+
+    // Col 3: Ready to Eat (with note)
+    drawCategory(CX[2], HEADER_H + SPAD_TOP, CS_DATA[3], [
+      'Note: Per-person (pp) items include',
+      '400g food (Pidi or Fried Rice) + curry.'
+    ]);
+
+    // =====================================================================
+    // CONTACT STRIP (replaces dark footer — stays on lavender)
+    // =====================================================================
+    var CSY = 950;  // top of contact strip
+
+    // Thin separator above contact
+    ctx.save();
+    ctx.strokeStyle = 'rgba(233,30,99,0.35)'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(HPAD+24, CSY-6); ctx.lineTo(W-HPAD-24, CSY-6); ctx.stroke();
+    ctx.strokeStyle = 'rgba(207,197,229,0.5)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(HPAD+24, CSY-2); ctx.lineTo(W-HPAD-24, CSY-2); ctx.stroke();
+    ctx.restore();
+
+    // "For Orders Contact:" heading
+    ctx.save();
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillStyle = '#2c1f4a'; ctx.font = 'bold 13px "Inter",sans-serif';
+    ctx.fillText('For Orders Contact:', W/2, CSY + 4);
+    ctx.restore();
+
+    // WA icon + number centred
+    var ctCenterX = W/2;
+    ctx.save();
+    ctx.font = '600 14.5px "Inter",sans-serif';
+    var ctNumW = ctx.measureText('+91 97785 38410').width;
+    ctx.restore();
+    var ctBlockW = 22 + 6 + ctNumW;
+    drawIcon(ctx, WA_PATH, ctCenterX - ctBlockW/2, CSY + 24, 22, '#25D366');
+    ctx.save();
+    ctx.textBaseline = 'top'; ctx.textAlign = 'left';
+    ctx.fillStyle = '#2c1f4a'; ctx.font = '600 14.5px "Inter",sans-serif';
+    ctx.fillText('+91 97785 38410', ctCenterX - ctBlockW/2 + 22 + 6, CSY + 25);
+    ctx.restore();
+
+    // Maps icon + address centred below
+    ctx.save();
+    ctx.font = '400 12px "Inter",sans-serif';
+    var ctAddrW = ctx.measureText("Ammu\u2019s Food Products, Kandanad, Ernakulam, Kerala 682305").width;
+    ctx.restore();
+    var ctAddrBlockW = 18 + 5 + ctAddrW;
+    drawIcon(ctx, MAPS_PATH, ctCenterX - ctAddrBlockW/2, CSY + 52, 18, '#ea4335', 'evenodd');
+    ctx.save();
+    ctx.textBaseline = 'top'; ctx.textAlign = 'left';
+    ctx.fillStyle = '#2c1f4a'; ctx.font = '400 12px "Inter",sans-serif';
+    ctx.fillText("Ammu\u2019s Food Products, Kandanad, Ernakulam, Kerala 682305", ctCenterX - ctAddrBlockW/2 + 18 + 5, CSY + 54);
+    ctx.restore();
+
+    // Copyright line at very bottom
+    ctx.save();
+    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    ctx.fillStyle = 'rgba(107,93,136,0.50)'; ctx.font = '400 10.5px "Inter",sans-serif';
+    ctx.fillText('\u00A9 2025 Ammu\u2019s Food Products \u00B7 Made with love, served with tradition', W/2, H - 14);
+    ctx.restore();
+
+    // ---- Trigger download via requestAnimationFrame to avoid jank ----
+    requestAnimationFrame(function() {
+      c.toBlob(function(blob) {
+        if (!blob) {
+          alert('Could not generate the menu card. Please try again.');
+          if (btn) { btn.disabled = false; btn.innerHTML = btnHTML; }
+          return;
+        }
+        var url = URL.createObjectURL(blob);
+        var a   = document.createElement('a');
+        a.href = url; a.download = 'ammus-menu-card.png';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        if (btn) { btn.disabled = false; btn.innerHTML = btnHTML; }
+      }, 'image/png');
+    });
+  }
+}
+
 
 </script>
 </body>
